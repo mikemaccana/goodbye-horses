@@ -17,9 +17,16 @@ h1 {
 	font-family: 'BellMTRegular';
 }
 
-h2 {
-	max-width: 80%;
-	float: left;
+p.bio {
+	position: absolute;
+	left: 100px;
+	top: 70px;
+}
+
+address {
+	float: right;
+	text-align: right;
+	font-size: 80%;
 }
 
 nav > ul > li {
@@ -29,17 +36,16 @@ nav > ul > li {
 	letter-spacing: 3pt;
 }
 
-address {
-	float: right;
-	text-align: right;
-	font-size: 80%;
-}
-
 li.work {
 	display: block;
 	margin: 20px;
 	width: 240px;
 	height: 384px;
+	float: left;
+}
+
+h2 {
+	max-width: 80%;
 	float: left;
 }
 
