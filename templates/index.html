@@ -43,6 +43,9 @@
 					</li>
 				{{/works}}
 			</ul>
+			<ul id="sorted_works">
+			</ul>
+			
 			<footer>
 			</footer>
 			
@@ -177,33 +180,34 @@
 				return sorted_works					
 			}
 			
-			var enable_tags = function(){
+			var enable_tag_hover = function(event){
 				// Enable the tag filtering. Enabled onload and after each filter.
 				console.log('enabling tags');
-				var $tags = $('li.tag')
-				$tags.hover( function(event){
+				var $tags = $('#works').find('li.tag')
+				$tags.live('hover', function(event){
 					$(event.target).animate({ backgroundColor: "#222" }, 'slow');
 				},function(event){
 					$(event.target).animate({ backgroundColor: "#777" }, 'slow');
 				})	
+			}
 				
-				$tags.click( function(event) {
-					console.log('Tag clicked')
-					var sort_key = $(event.target).text();
+			var enable_tags = function(event){	
+				// Sort works when tags clicked 
+				console.log('Tag clicked')
+				var sort_key = $(event.target).text();
 				
-					sorted_works = {
-						works: sort_works(sort_key)
-					}
+				sorted_works = {
+					works: sort_works(sort_key)
+				}
 				
-					var sorted_portfolio = ich.sorted_works_template(sorted_works);
-					$('body').append(sorted_portfolio);
+				var sorted_portfolio = ich.sorted_works_template(sorted_works);
+				$('#sorted_works').replaceWith(sorted_portfolio);
 				
-					$('#works').quicksand( $('#sorted_works li.work') );
-					enable_tags();
-				})	
+				$('#works').quicksand( $('#sorted_works li.work') );
 			}
 			
-			enable_tags();
+			$('#works > li > ul > li.tag').live('click', enable_tags);
+			$('#works > li > ul > li.tag').live('hover', enable_tag_hover);
 		})
 		</script>
 		
