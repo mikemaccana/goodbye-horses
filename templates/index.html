@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../public/css/reset.css"/>
+		<link rel="stylesheet" href="../public/css/portfolio.css"/>
+		<script src="../public/js/jquery.js"></script>
+		<script src="../public/js/jquery.color.js"></script>
+		<script src="../public/js/jquery.quicksand.js"></script>
+		<script src="../public/js/icanhas.min.js"></script>
+		<script id="portfolio_template" type="text/html">
+			<header>
+				<h1>{{name}}</h1>	
+				<address>
+					<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
+					<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
+				</address>
+				<div class="clearfix"></div>
+			</header>
+			<ul id="works">
+				{{# works}}
+					<li data-id="{{ slug_name }}" class="work">
+						<img src="http://lorempixel.com/240/135/"></src>
+						<h2>{{ name }}</h2>
+						<div class="year">{{ year }}</div>
+						<div class="clearfix"></div>
+						<p class="description">{{ description }}</a>
+						<ul>
+							{{# tags}}
+								<li class="tag">{{ . }}</li>
+							{{/tags}}
+						</ul>
+					</li>
+				{{/works}}
+			</ul>
+			<footer>
+			</footer>
+			
+		</script>
+		
+		<script id="sorted_works_template" type="text/html">
+			<ul id="sorted_works" class="hidden">
+				{{# works }}
+					<li data-id="{{ slug_name }}">
+					</li>
+				{{/works}}
+			</ul>
+		</script>
+		
+		<script>
+		$(function(){
+			var portfolio_data = {
+				name: "Mike MacCana",
+				twitter: "mikemaccana",
+				email: "mike@mikemaccana.com",
+				works: [
+					{
+						name: "I'm Everyone",
+						client: 'self',
+						description: 'A realtime, threaded, anonymous communication platform',
+						tags: ['art project','js','realtime','python','tornado'],
+						year: 2010
+					},
+					{
+						name: "Getting American Business Online",
+						client: 'Google',
+						description: "Googles US-wide programme to get all American businesses online",
+						tags: ['js','python','appengine','django','nosql','app'],
+						year: 2010
+					},
+					{
+						name: 'Google Engage',
+						client: 'Google',
+						description: "Google's world-wide programme toextendthe reach of its Google's AdWords to clients of third party customers",
+						tags: ['cloud','nosql','appengine','python','js','app'],
+						year: 2011	
+					},
+					{
+						name: 'Simple OAuth2',
+						client: 'self',
+						description: "A standalone, simple Python module to allow apps to authenticate with Google, Twitter, Facebookand other OAuth 2 API providers",
+						tags: ['google apis'],
+						year: 2011
+					},
+					{
+						name: 'Fast REST',	
+						client: 'Google',
+						description: "An easy to use, high level REST library that doesn't require boilerplate code, and takes advantage of Google AppEngine",
+						tags: ['library','open source','appengine'],
+						year: 2011
+					},
+					{
+						name: 'Training and Consulting',	
+						client: 'Red Hat',
+						description: "Linux training and consulting for Red Hat's Enterprise customers. I've trained a few hundred RHCEs and RHCAs, and I'm the 'mikem' in the Red Hat Enterprise Linux sudoers file! ",
+						tags: ['training','linux','writing','Open Source'],
+						year: 2011
+					},
+					{
+						name: 'User Priviledge Revalidation Tools',	
+						client: 'IBM Global Services',
+						description: "A set of tools to collect, summarize, data of thousands of servers and then revalidate the data with user's managers",
+						tags: ['python','linux','ldap','XML','web scraping'],
+						year: 2011
+					},
+					
+					{
+						name: 'Columnist, Real World Computing',	
+						client: 'PC Authority',
+						description: "Monthly columns on Linux, Microsoft, 3G, content management, and other topics of interest to readers",
+						tags: ['linux','server','writing and editing'],
+						year: 2003
+					},
+					{
+						name: 'Knife Party',	
+						client: 'self',
+						description: "A ticket sniper for EventBrite events",
+						tags: ['Chrome Extension','js','Open Source','web scraping'],
+						year: 2012
+					},
+					{
+						name: 'Python Docx',	
+						client: 'self',
+						description: "A tool to read, edit and create Microsoft Word OpenXML documents.",
+						tags: ['Open Source','XML','library'],
+						year: 2008
+					},
+					{
+						name: 'Founder, Australian Linux Journal',	
+						client: 'self',
+						description: "Sourced writers, provided briefs, copy-edited, and interviewed for the first two issues of this Asia/Pacific magazine focusing on Linux and Open Source",
+						tags: ['writing and editing','linux'],
+						year: 2004
+					}
+					
+				]
+			};
+			
+			portfolio_data.works.forEach( function(work) {
+				work['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase()
+			}) 
+
+			// Fill in the portfolio
+			var portfolio = ich.portfolio_template(portfolio_data);
+			$('body').append(portfolio);
+			
+			var $tags = $('li.tag')
+			
+			$tags.hover( function(event){
+				$(event.target).animate({ backgroundColor: "#222" }, 'slow');
+			},function(event){
+				$(event.target).animate({ backgroundColor: "#777" }, 'slow');
+			})			
+			
+			var sort_works = function(sort_key) {
+				var sorted_works = [];
+				portfolio_data.works.forEach(function(work) {
+					if ( work.tags.indexOf(sort_key)+1 ) {
+						//console.log(work.name+' has '+sort_key);
+						sorted_works.push(work);
+						
+					}
+				})
+				return sorted_works					
+			}
+			
+			$tags.click( function(event) {
+				var sort_key = $(event.target).text();
+				
+				sorted_works = {
+					works: sort_works(sort_key)
+				}
+				
+				console.dir('sorted_works :')
+				console.log(sorted_works)
+				
+				var sorted_portfolio = ich.sorted_works_template(sorted_works);
+				$('body').append(sorted_portfolio);
+				
+				$('#works').quicksand( $('#sorted_works li') );
+			})
+			
+		})
+		</script>
+		
+	</head>
+	<body>
+		
+	</body>	
+</html>

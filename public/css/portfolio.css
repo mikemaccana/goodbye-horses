@@ -1,0 +1,87 @@
+/* Note base sizes are 100% & 80% */
+
+body {
+	margin: 20px;
+	font-size: 100%;
+	background-color: whiteSmoke;
+}
+
+h1 {
+	font-size: 160%;
+	float: left;
+	font-family: 'BellMTRegular';
+}
+
+h2 {
+	max-width: 80%;
+	float: left;
+}
+
+address {
+	float: right;
+	text-align: right;
+	font-size: 80%;
+}
+
+li.work {
+	display: block;
+	margin: 20px;
+	width: 240px;
+	height: 384px;
+	float: left;
+}
+
+.year {
+	float: right;
+}
+
+p.description {
+	font-style: oblique;
+	line-height: 20px;
+	padding: 10px 0;
+}
+
+li.tag {
+	font-size: 62%;
+	text-transform: uppercase;
+	background-color: #777;
+	color: white;
+	display: block;
+	float: left;
+	border-radius: 2px;
+	padding: 1px 4px;
+	margin: 2px;
+	cursor: pointer;
+}
+
+/* Fonts */
+
+@font-face {
+    font-family: 'BellMTRegular';
+    src: url('../fonts/bell_mt-webfont.eot');
+    src: url('../fonts/bell_mt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bell_mt-webfont.woff') format('woff'),
+         url('../fonts/bell_mt-webfont.ttf') format('truetype'),
+         url('../fonts/bell_mt-webfont.svg#BellMTRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/* Hacks */
+
+.clearfix {
+	clear: both;
+}
+
+.hidden {
+	display: none;
+}
+
+/* Missing from reset.css */
+
+li {
+	list-style-type: none;
+}
+
