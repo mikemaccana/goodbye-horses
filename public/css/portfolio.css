@@ -4,6 +4,7 @@ body {
 	margin: 20px;
 	font-size: 100%;
 	background-color: whiteSmoke;
+	color: #222;
 }
 
 h1 {
@@ -15,6 +16,12 @@ h1 {
 h2 {
 	max-width: 80%;
 	float: left;
+}
+
+nav > ul > li {
+	float: left;
+	padding: 0 20px;
+	text-transform: small-caps;
 }
 
 address {
@@ -85,3 +92,10 @@ li {
 	list-style-type: none;
 }
 
+a:link, a:visited, a:hover, a:active { 
+	color:#222
+}
+
+a:link, a:visited, a:active { 
+	text-decoration:none
+}

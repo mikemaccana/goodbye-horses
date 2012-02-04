@@ -16,6 +16,15 @@
 				</address>
 				<div class="clearfix"></div>
 			</header>
+			<nav>
+				<ul>
+					<li>Works</li>
+					<li>Works</li>
+					<li>Works</li>
+					<li>Works</li>
+				</ul>
+				<div class="clearfix"></div>
+			</nav>
 			<ul id="works">
 				{{# works}}
 					<li data-id="{{ slug_name }}" class="work">
@@ -40,7 +49,20 @@
 		<script id="sorted_works_template" type="text/html">
 			<ul id="sorted_works" class="hidden">
 				{{# works }}
-					<li data-id="{{ slug_name }}">
+					<li data-id="{{ slug_name }}" class="work">
+					
+					<img src="http://lorempixel.com/240/135/"></src>
+					<h2>{{ name }}</h2>
+					<div class="year">{{ year }}</div>
+					<div class="clearfix"></div>
+					<p class="description">{{ description }}</a>
+					<!-- <ul>
+						{{# tags}}
+							<li class="tag">{{ . }}</li>
+						{{/tags}}
+					</ul>
+					-->
+					
 					</li>
 				{{/works}}
 			</ul>
