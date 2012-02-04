@@ -17,13 +17,14 @@
 				<div class="clearfix"></div>
 			</header>
 			<nav>
-				<ul>
+				<!-- <ul>
 					<li>Works</li>
-					<li>Works</li>
+					<li></li>
 					<li>Works</li>
 					<li>Works</li>
 				</ul>
 				<div class="clearfix"></div>
+				-->
 			</nav>
 			<ul id="works">
 				{{# works}}
@@ -38,6 +39,7 @@
 								<li class="tag">{{ . }}</li>
 							{{/tags}}
 						</ul>
+						<!-- <p class="github">On github</p> -->
 					</li>
 				{{/works}}
 			</ul>
@@ -56,13 +58,11 @@
 					<div class="year">{{ year }}</div>
 					<div class="clearfix"></div>
 					<p class="description">{{ description }}</a>
-					<!-- <ul>
-						{{# tags}}
-							<li class="tag">{{ . }}</li>
-						{{/tags}}
-					</ul>
-					-->
-					
+						<ul>
+							{{# tags}}
+								<li class="tag">{{ . }}</li>
+							{{/tags}}
+						</ul>				
 					</li>
 				{{/works}}
 			</ul>
@@ -79,7 +79,7 @@
 						name: "I'm Everyone",
 						client: 'self',
 						description: 'A realtime, threaded, anonymous communication platform',
-						tags: ['art project','js','realtime','python','tornado'],
+						tags: ['artwork','js','realtime','python','tornado'],
 						year: 2010
 					},
 					{
@@ -101,12 +101,13 @@
 						client: 'self',
 						description: "A standalone, simple Python module to allow apps to authenticate with Google, Twitter, Facebookand other OAuth 2 API providers",
 						tags: ['google apis'],
-						year: 2011
+						year: 2011,
+						github: 'http://www.github.com'
 					},
 					{
 						name: 'Fast REST',	
 						client: 'Google',
-						description: "An easy to use, high level REST library that doesn't require boilerplate code, and takes advantage of Google AppEngine",
+						description: "An easy to use, high level REST library that doesn't require boilerplate code, and takes advantage of Google AppEngine's network infrastructure.",
 						tags: ['library','open source','appengine'],
 						year: 2011
 					},
@@ -115,14 +116,14 @@
 						client: 'Red Hat',
 						description: "Linux training and consulting for Red Hat's Enterprise customers. I've trained a few hundred RHCEs and RHCAs, and I'm the 'mikem' in the Red Hat Enterprise Linux sudoers file! ",
 						tags: ['training','linux','writing','Open Source'],
-						year: 2011
+						year: 2004
 					},
 					{
-						name: 'User Priviledge Revalidation Tools',	
+						name: 'User Privilege Revalidation Tools',	
 						client: 'IBM Global Services',
 						description: "A set of tools to collect, summarize, data of thousands of servers and then revalidate the data with user's managers",
 						tags: ['python','linux','ldap','XML','web scraping'],
-						year: 2011
+						year: 2007
 					},
 					
 					{
@@ -165,42 +166,44 @@
 			var portfolio = ich.portfolio_template(portfolio_data);
 			$('body').append(portfolio);
 			
-			var $tags = $('li.tag')
-			
-			$tags.hover( function(event){
-				$(event.target).animate({ backgroundColor: "#222" }, 'slow');
-			},function(event){
-				$(event.target).animate({ backgroundColor: "#777" }, 'slow');
-			})			
-			
 			var sort_works = function(sort_key) {
+				// Return a list of the work with the tag/sort_key mentioned
 				var sorted_works = [];
 				portfolio_data.works.forEach(function(work) {
 					if ( work.tags.indexOf(sort_key)+1 ) {
-						//console.log(work.name+' has '+sort_key);
 						sorted_works.push(work);
-						
 					}
 				})
 				return sorted_works					
 			}
 			
-			$tags.click( function(event) {
-				var sort_key = $(event.target).text();
+			var enable_tags = function(){
+				// Enable the tag filtering. Enabled onload and after each filter.
+				console.log('enabling tags');
+				var $tags = $('li.tag')
+				$tags.hover( function(event){
+					$(event.target).animate({ backgroundColor: "#222" }, 'slow');
+				},function(event){
+					$(event.target).animate({ backgroundColor: "#777" }, 'slow');
+				})	
 				
-				sorted_works = {
-					works: sort_works(sort_key)
-				}
+				$tags.click( function(event) {
+					console.log('Tag clicked')
+					var sort_key = $(event.target).text();
 				
-				console.dir('sorted_works :')
-				console.log(sorted_works)
+					sorted_works = {
+						works: sort_works(sort_key)
+					}
 				
-				var sorted_portfolio = ich.sorted_works_template(sorted_works);
-				$('body').append(sorted_portfolio);
+					var sorted_portfolio = ich.sorted_works_template(sorted_works);
+					$('body').append(sorted_portfolio);
 				
-				$('#works').quicksand( $('#sorted_works li') );
-			})
+					$('#works').quicksand( $('#sorted_works li.work') );
+					enable_tags();
+				})	
+			}
 			
+			enable_tags();
 		})
 		</script>
 		
