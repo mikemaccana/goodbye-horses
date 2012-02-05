@@ -21,6 +21,7 @@ p.bio {
 	position: absolute;
 	left: 100px;
 	top: 70px;
+	font-style: oblique;
 }
 
 address {
@@ -36,12 +37,16 @@ nav > ul > li {
 	letter-spacing: 3pt;
 }
 
+#works {
+}
+
 li.work {
 	display: block;
 	margin: 20px;
 	width: 240px;
 	height: 384px;
 	float: left;
+	position: relative;
 }
 
 h2 {
@@ -70,6 +75,15 @@ li.tag {
 	padding: 1px 4px;
 	margin: 2px;
 	cursor: pointer;
+}
+
+a.github {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-style: oblique;
+	font-size: 80%;
 }
 
 /* Fonts */
