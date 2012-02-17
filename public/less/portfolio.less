@@ -1,50 +1,69 @@
-/* Note base sizes are 100% & 80% */
+@darkgrey: #222;
+@orange: hsl(378, 100%, 47%);
+@headingfont: 'BellMTRegular';
+@primary_base_font_size: 100%;
+@secondary_base_font_size: 80%;
+@golden_ratio: 1.6;
 
 body {
-	font-size: 100%;
+	font-size: @primary_base_font_size;
 	background-color: whiteSmoke;
-	color: #222;
+	color: @darkgrey;
+}
+
+.centered_on_page {
+	max-width: 960px;
+	margin: 0 auto;	
 }
 
 header {
-	padding: 20px;
-	margin: 20px;
+	padding: 20px 0;
+	.centered_on_page;
+}
+
+#header_and_slogan {
+	float: left;
 }
 
 h1 {
-	font-size: 160%;
-	float: left;
-	font-family: 'BellMTRegular';
+	font-size: @primary_base_font_size * @golden_ratio;
+	font-family: @headingfont;
 }
 
 h2 {
-	font-size: 128%;
-	font-family: 'BellMTRegular';
+	font-size: @primary_base_font_size * @golden_ratio;
+	font-family: @headingfont;
+}
+
+p.slogan {
+	position: relative;
+	left: 70px;
+	top: -10px;
+	font-style: oblique;
+	color: @orange;
 }
 
 p.bio {
-	position: absolute;
-	left: 100px;
-	top: 70px;
 	font-style: oblique;
-	color: hsl(378, 100%, 47%);
 }
 
 address {
 	float: right;
 	text-align: right;
-	font-size: 80%;
-	border-top: 1px solid #222;
-	border-bottom: 1px solid #222;
+	font-size: @secondary_base_font_size;
+	border-top: 1px solid @darkgrey;
+	border-bottom: 1px solid @darkgrey;
 	padding: 10px;
 }
 
 nav {
-	background-color: #222;
+	background-color: @darkgrey;
 	padding: 5px 40px;
 }
 
-
+nav > ul {
+	.centered_on_page;
+}
 
 nav > ul > li > a:link,
 nav > ul > li > a:visited,
@@ -65,9 +84,8 @@ nav > ul > li {
 
 section.maincontent {
 	min-height: 1000px;
-	margin: 20px;
-	max-width: 960px;
-	margin: 0 auto;
+	padding-top: 20px;
+	.centered_on_page;
 } 
 
 section.main {
@@ -119,7 +137,7 @@ p.description {
 }
 
 li.tag {
-	font-size: 62%;
+	font-size: @primary_base_font_size / @golden_ratio;
 	text-transform: uppercase;
 	background-color: #777;
 	color: white;
@@ -137,25 +155,25 @@ a.github {
     right: 0;
     bottom: 0;
     font-style: oblique;
-	font-size: 80%;
+	font-size: @secondary_base_font_size;
 }
 
 footer {
-	border-top: 2px solid #222;
+	border-top: 2px solid @darkgrey;
 	min-height: 300px;
 	padding: 20px;
 }
 
 footer > h2 {
-	font-size: 80%;
+	font-size: @secondary_base_font_size;
 	text-transform: uppercase;
-	color: #222;
+	color: @darkgrey;
 }
 
 /* Fonts */
 
 @font-face {
-    font-family: 'BellMTRegular';
+    font-family: @headingfont;
     src: url('../fonts/bell_mt-webfont.eot');
     src: url('../fonts/bell_mt-webfont.eot?#iefix') format('embedded-opentype'),
          url('../fonts/bell_mt-webfont.woff') format('woff'),
@@ -187,9 +205,9 @@ li {
 }
 
 a:link, a:visited, a:hover, a:active { 
-	color:#222
+	color: @darkgrey
 }
 
 a:link, a:visited, a:active { 
-	text-decoration:none
+	text-decoration: none
 }
