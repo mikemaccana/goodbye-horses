@@ -17,6 +17,11 @@ h1 {
 	font-family: 'BellMTRegular';
 }
 
+h2 {
+	font-size: 128%;
+	font-family: 'BellMTRegular';
+}
+
 p.bio {
 	position: absolute;
 	left: 100px;
@@ -39,6 +44,8 @@ nav {
 	padding: 5px 40px;
 }
 
+
+
 nav > ul > li > a:link,
 nav > ul > li > a:visited,
 nav > ul > li > a:hover,
@@ -54,8 +61,38 @@ nav > ul > li {
 	font-size: 64%;
 }
 
-#works {
+/* */
+
+section.maincontent {
+	min-height: 1000px;
 	margin: 20px;
+	max-width: 960px;
+	margin: 0 auto;
+} 
+
+section.main {
+	width: 60%;
+	float: left;
+}
+
+section.sidebar {
+	width: 30%;
+	float: right;
+}
+
+article {
+	margin-bottom: 100px;
+}
+
+article > p {
+	text-align: justify; 
+	text-justify: newspaper;
+}
+
+
+/* Works */
+
+#works {
 }
 
 li.work {
@@ -69,7 +106,6 @@ li.work {
 
 h2 {
 	max-width: 80%;
-	float: left;
 }
 
 .year {

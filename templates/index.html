@@ -7,6 +7,7 @@
 		<script src="../public/js/jquery.color.js"></script>
 		<script src="../public/js/jquery.quicksand.js"></script>
 		<script src="../public/js/icanhas.min.js"></script>
+		<script src="../public/js/less-1.2.1.min.js"></script>
 		<script id="portfolio_template" type="text/html">
 			<header>
 				<h1>{{name}}</h1>
@@ -14,8 +15,6 @@
 				<address>
 					<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
 					<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
-					<!-- <img src="../public/images/twitter.png"/>
-					<img src="../public/images/email.png"/>-->
 				</address>
 				<div class="clearfix"></div>
 			</header>
@@ -27,7 +26,28 @@
 				</ul>
 				<div class="clearfix"></div>
 			</nav>
-			<section>
+			
+			<section class="maincontent">
+				<section class="main">
+					{{# articles}}
+						<article>
+							<h2>{{ title }}</h2>
+							<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
+							<p>{{ body }}</p>
+						</article>
+					{{/articles}}
+				</section>
+				<section class="sidebar">
+					<h1>{{name}}</h1>
+					<p class="bio">&mdash;{{ bio }}</a>	
+					<address>
+						<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
+						<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
+					</address>
+				</section>
+			</section>
+			
+			<section class="maincontent">
 				<ul id="works">
 					{{# works}}
 						<li data-id="{{ slug_name }}" class="work">
@@ -83,6 +103,18 @@
 				twitter: "mikemaccana",
 				bio: "I like making things.",
 				email: "mike@mikemaccana.com",
+				articles: [
+					{
+						'title':'ipsum dlor lorem sum',
+						'publication_date':'2012-02-17',
+						'body':"Pour-over quis sunt, hella iphone aliqua anim wes anderson. Minim occaecat organic pop-up godard ethical mixtape american apparel seitan. Art party tofu aute accusamus twee, whatever brunch vinyl artisan semiotics polaroid. Before they sold out farm-to-table keffiyeh, helvetica single-origin coffee williamsburg narwhal fap pitchfork four loko fixie gentrify aesthetic officia consequat. Small batch PBR qui, hoodie pariatur williamsburg art party gluten-free banksy direct trade quinoa yr carles kale chips. Exercitation gentrify sriracha art party proident, flexitarian nihil VHS post-ironic minim bushwick. Twee mcsweeney's williamsburg tofu sint tempor, vegan occaecat 8-bit american apparel."
+					},
+					{
+						'title':'Chambray ullamco in wes anderson.',
+						'publication_date':'2012-02-17',
+						'body':"Consectetur art party fugiat eu. Ad raw denim chillwave, fugiat four loko cillum messenger bag tattooed occaecat. Typewriter culpa ethical pariatur ea art party terry richardson, mumblecore ex VHS farm-to-table keffiyeh vice elit consequat. Master cleanse single-origin coffee mixtape, mollit etsy letterpress incididunt retro. Mollit odio narwhal PBR trust fund blog. Cliche mixtape you probably haven't heard of them next level. Squid post-ironic sartorial, PBR blog swag sunt esse nostrud wolf aliqua marfa helvetica gentrify commodo."
+					}
+				],
 				works: [
 					{
 						name: "I'm Everyone",
