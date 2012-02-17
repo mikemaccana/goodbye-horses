@@ -1,7 +1,6 @@
 /* Note base sizes are 100% & 80% */
 
 body {
-	margin: 20px;
 	font-size: 100%;
 	background-color: whiteSmoke;
 	color: #222;
@@ -9,6 +8,7 @@ body {
 
 header {
 	padding: 20px;
+	margin: 20px;
 }
 
 h1 {
@@ -22,22 +22,40 @@ p.bio {
 	left: 100px;
 	top: 70px;
 	font-style: oblique;
+	color: hsl(378, 100%, 47%);
 }
 
 address {
 	float: right;
 	text-align: right;
 	font-size: 80%;
+	border-top: 1px solid #222;
+	border-bottom: 1px solid #222;
+	padding: 10px;
+}
+
+nav {
+	background-color: #222;
+	padding: 5px 40px;
+}
+
+nav > ul > li > a:link,
+nav > ul > li > a:visited,
+nav > ul > li > a:hover,
+nav > ul > li > a:active {
+	color: white;
 }
 
 nav > ul > li {
 	float: left;
 	padding: 0 20px;
-	font-variant: small-caps;
-	letter-spacing: 3pt;
+	text-transform: uppercase;
+	letter-spacing: 1pt;
+	font-size: 64%;
 }
 
 #works {
+	margin: 20px;
 }
 
 li.work {
@@ -86,6 +104,18 @@ a.github {
 	font-size: 80%;
 }
 
+footer {
+	border-top: 2px solid #222;
+	min-height: 300px;
+	padding: 20px;
+}
+
+footer > h2 {
+	font-size: 80%;
+	text-transform: uppercase;
+	color: #222;
+}
+
 /* Fonts */
 
 @font-face {
@@ -100,7 +130,6 @@ a.github {
 
 }
 
-
 /* Hacks */
 
 .clearfix {
@@ -109,6 +138,10 @@ a.github {
 
 .hidden {
 	display: none;
+}
+
+* { 
+	box-sizing: border-box 
 }
 
 /* Missing from reset.css */

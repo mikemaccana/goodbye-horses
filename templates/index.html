@@ -14,42 +14,46 @@
 				<address>
 					<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
 					<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
+					<!-- <img src="../public/images/twitter.png"/>
+					<img src="../public/images/email.png"/>-->
 				</address>
 				<div class="clearfix"></div>
 			</header>
 			<nav>
-				<!-- <ul>
-					<li>Works</li>
-					<li></li>
-					<li>Works</li>
-					<li>Works</li>
+				<ul>
+					<li><a href="work">Work</a></li>
+					<li><a href="writing">Writing</a></li>
+					<li><a href="contact">Contact</a></li>
 				</ul>
 				<div class="clearfix"></div>
-				-->
 			</nav>
-			<ul id="works">
-				{{# works}}
-					<li data-id="{{ slug_name }}" class="work">
-						<img src="http://lorempixel.com/240/135/"></src>
-						<h2>{{ name }}</h2>
-						<div class="year">{{ year }}</div>
-						<div class="clearfix"></div>
-						<p class="description">{{ description }}</a>
-						<ul>
-							{{# tags}}
-								<li class="tag">{{ . }}</li>
-							{{/tags}}
-						</ul>
-						{{#github}}<a href="http://www.github.com/mikemaccana/{{ github }}" class="github" target="_blank">On github &#0187;</a>{{/github}}
-					</li>
-				{{/works}}
-			</ul>
+			<section>
+				<ul id="works">
+					{{# works}}
+						<li data-id="{{ slug_name }}" class="work">
+							<img src="http://lorempixel.com/240/135/"></src>
+							<h2>{{ name }}</h2>
+							<div class="year">{{ year }}</div>
+							<div class="clearfix"></div>
+							<p class="description">{{ description }}</a>
+							<ul>
+								{{# tags}}
+									<li class="tag">{{ . }}</li>
+								{{/tags}}
+							</ul>
+							{{#github}}<a href="http://www.github.com/mikemaccana/{{ github }}" class="github" target="_blank">On github &#0187;</a>{{/github}}
+						</li>
+					{{/works}}
+				</ul>
+				<div class="clearfix"></div>
+			</section>
 			<ul id="sorted_works">
 			</ul>
-			
 			<footer>
+				<h2>Contact</h2>
+				<a class="email" href="mailto:{{ email }}">{{ email }}</a>
+				<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
 			</footer>
-			
 		</script>
 		
 		<script id="sorted_works_template" type="text/html">
@@ -92,19 +96,21 @@
 						client: 'Google',
 						description: "Googles US-wide programme to get all American businesses online",
 						tags: ['js','python','app engine','django','nosql','app'],
-						year: 2010
+						year: 2010,
+						link: 'americagetonline.com'
 					},
 					{
 						name: 'Google Engage',
 						client: 'Google',
 						description: "Google's world-wide programme toextendthe reach of its Google's AdWords to clients of third party customers",
 						tags: ['cloud','nosql','app engine','python','js','app'],
-						year: 2011	
+						year: 2011,
+						link: 'www.google.com/ads/engage2011'
 					},
 					{
 						name: 'Simple OAuth2',
 						client: 'self',
-						description: "A standalone, simple Python module to allow apps to authenticate with Google, Twitter, Facebookand other OAuth 2 API providers",
+						description: "A standalone, simple Python module to allow apps to authenticate with Google, Twitter, Facebook and other OAuth 2 API providers",
 						tags: ['google apis'],
 						year: 2011,
 						github: 'simple_oauth2'
@@ -114,19 +120,20 @@
 						client: 'Google',
 						description: "An easy to use, high level REST library that doesn't require boilerplate code, and takes advantage of Google App Engine's network infrastructure.",
 						tags: ['library','open source','app engine'],
-						year: 2011
+						year: 2011,
+						github: 'fast_rest'
 					},
 					{
 						name: 'Training and Consulting',	
 						client: 'Red Hat',
-						description: "Linux training and consulting for Red Hat's Enterprise customers. I've trained a few hundred RHCEs and RHCAs, and I'm the 'mikem' in the Red Hat Enterprise Linux sudoers file! ",
-						tags: ['training','linux','writing','Open Source'],
+						description: "Linux training and consulting for Red Hat's Enterprise customers. I've trained a few hundred RHCEs and RHCAs. I'm the 'mikem' in the Red Hat Enterprise Linux 'sudoers' file! ",
+						tags: ['training','linux','public speaking','writing and editing','Open Source'],
 						year: 2004
 					},
 					{
 						name: 'User Privilege Revalidation Tools',	
 						client: 'IBM Global Services',
-						description: "A set of tools to collect, summarize, data of thousands of servers and then revalidate the data with user's managers",
+						description: "Compliance tools to collect, summarize, data of thousands of servers and then revalidate the data with user's managers",
 						tags: ['python','linux','ldap','XML','web scraping'],
 						year: 2007
 					},
@@ -143,14 +150,16 @@
 						client: 'self',
 						description: "A ticket sniper for EventBrite events",
 						tags: ['Chrome Extension','js','Open Source','web scraping'],
-						year: 2012
+						year: 2012,
+						github: 'knife_party'
 					},
 					{
 						name: 'Python Docx',	
 						client: 'self',
-						description: "A tool to read, edit and create Microsoft Word OpenXML documents.",
+						description: "Create, read, and edit Microsoft Word OpenXML documents from pure Python.",
 						tags: ['Open Source','XML','library'],
-						year: 2008
+						year: 2008,
+						github: 'docx'
 					},
 					{
 						name: 'Founder, Australian Linux Journal',	
@@ -178,7 +187,8 @@
 						client: 'Google',
 						description: "An app to collect questions from citiens all over the world, and addressed those questions to world leaders - including Barack Obama, Bono, David Cameron, Angela Merkel and Nicholas Sarkozy - in live YouTube interviews watched by millions of people.",
 						tags: ['app engine','google apis','python','js','youtube'],
-						year: 2011
+						year: 2011,
+						link: 'youtube.com/worldview'
 					},
 					{
 						name: 'TickTick Boom',	
@@ -192,7 +202,8 @@
 						client: 'self',
 						description: "TickTickBoom is an unoffical port of Tweetie (Twitter for Mac) user interface to Chrome. Features include proactive notification of tweets,a direct message account, and the Tweetie multi-panel UI. It also uses recent technologies including Chrome messaging, webkit filters, and Coffeescript behind the scenes. It's unfinished, but accomplished it's job of teaching the author how to make very large Chrome extensions.",
 						tags: ['twitter api','js','chrome extension'],
-						year: 2011
+						year: 2011,
+						github: 'ticktickboom'
 					},
 					{
 						name: 'URLSign',	
@@ -214,6 +225,13 @@
 						description: "A presentation for the Communications, Media, and Technology team from UK Law Firm Norton Rose. Topics convered include software development cycle, Open Source, and related matters.",
 						tags: ['public speaking','open source'],
 						year: 2009
+					},
+					{
+						name: 'The Path',	
+						client: 'self',
+						description: "One of the largest levels ever built for ifrst person shooter Doom II, bypassing many of the contraints of the Doom engine including mechanical objects, deep water, times events, and more.",
+						tags: ['artwork','open source'],
+						year: 1995
 					}
 					
 				]
@@ -261,10 +279,25 @@
 			})
 				
 		})
+		
+		console.log('hello');
+		$(document).on('click', 'nav > ul > li > a', function(event) {
+			var $target = $(event.target);
+			var destination = $target.attr('href');
+			var title = $target.text();
+			$.get(destination, function() {
+				history.pushState({}, title, destination);	
+				$('section').fadeOut();
+				event.preventDefault();	
+			})
+		});
+			
+		console.log('set up hndler');
+			
+		
 		</script>
 		
 	</head>
 	<body>
-		
 	</body>	
 </html>
