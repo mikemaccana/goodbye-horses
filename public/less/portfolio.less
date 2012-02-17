@@ -1,5 +1,6 @@
 @darkgrey: #222;
 @orange: hsl(378, 100%, 47%);
+@white: whiteSmoke;
 @headingfont: 'BellMTRegular';
 @primary_base_font_size: 100%;
 @secondary_base_font_size: 80%;
@@ -7,13 +8,18 @@
 
 body {
 	font-size: @primary_base_font_size;
-	background-color: whiteSmoke;
+	background-color: @white;
 	color: @darkgrey;
 }
 
 .centered_on_page {
 	max-width: 960px;
 	margin: 0 auto;	
+}
+
+.uppercase {
+	text-transform: uppercase;
+	letter-spacing: 1pt;
 }
 
 header {
@@ -74,9 +80,8 @@ nav > ul > li > a:active {
 nav > ul > li {
 	float: left;
 	padding: 0 20px;
-	text-transform: uppercase;
-	letter-spacing: 1pt;
 	font-size: 64%;
+	.uppercase;
 }
 
 /* Blog */
@@ -169,16 +174,22 @@ a.github {
 
 footer {
 	min-height: 300px;
-	padding: 20px;
+	padding-top: 50px;
 	margin-top: 100px;
 	background-color: @darkgrey;
-	color: whiteSmoke;
+	color: @white;
+	text-align: center;
+}
+
+#footer_message {
+	font-size: @secondary_base_font_size;
+	padding-top: 10px;
 }
 
 section.sidebar > h2 {
 	font-size: @secondary_base_font_size;
-	text-transform: uppercase;
 	color: @darkgrey;
+	.uppercase;
 }
 
 /* Fonts */

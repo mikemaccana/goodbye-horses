@@ -4,8 +4,9 @@ $(function(){
 	$.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 					
 		portfolio_data.works.forEach( function(work) {
-			work['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase()
+			work['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase();
 		}) 
+		portfolio_data['year'] = new Date().getFullYear();
 
 		var portfolio = ich.portfolio_template(portfolio_data);
 		$('body').append(portfolio);
