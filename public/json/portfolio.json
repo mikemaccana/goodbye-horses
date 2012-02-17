@@ -1,0 +1,171 @@
+{
+	"name": "Mike MacCana",
+	"twitter": "mikemaccana",
+	"slogan": "I like making things.",
+	"bio": "Hello there. I'm Mike MacCana, a designer, engineer, writer, and speaker, living and working in London.",
+	"email": "mike@mikemaccana.com",
+	"articles": [
+		{
+			"title":"ipsum dlor lorem sum",
+			"publication_date":"2012-02-17",
+			"body":"Pour-over quis sunt, hella iphone aliqua anim wes anderson. Minim occaecat organic pop-up godard ethical mixtape american apparel seitan. Art party tofu aute accusamus twee, whatever brunch vinyl artisan semiotics polaroid. Before they sold out farm-to-table keffiyeh, helvetica single-origin coffee williamsburg narwhal fap pitchfork four loko fixie gentrify aesthetic officia consequat. Small batch PBR qui, hoodie pariatur williamsburg art party gluten-free banksy direct trade quinoa yr carles kale chips. Exercitation gentrify sriracha art party proident, flexitarian nihil VHS post-ironic minim bushwick. Twee mcsweeney's williamsburg tofu sint tempor, vegan occaecat 8-bit american apparel."
+		},
+		{
+			"title":"Chambray ullamco in wes anderson.",
+			"publication_date":"2012-02-17",
+			"body":"Consectetur art party fugiat eu. Ad raw denim chillwave, fugiat four loko cillum messenger bag tattooed occaecat. Typewriter culpa ethical pariatur ea art party terry richardson, mumblecore ex VHS farm-to-table keffiyeh vice elit consequat. Master cleanse single-origin coffee mixtape, mollit etsy letterpress incididunt retro. Mollit odio narwhal PBR trust fund blog. Cliche mixtape you probably haven't heard of them next level. Squid post-ironic sartorial, PBR blog swag sunt esse nostrud wolf aliqua marfa helvetica gentrify commodo."
+		}
+	],
+	"works": [
+		{
+			"name": "I'm Everyone",
+			"client":"self",
+			"description":"A realtime, threaded, anonymous communication platform",
+			"tags": ["artwork","js","realtime","python","tornado","founder"],
+			"year": 2010
+		},
+		{
+			"name": "Getting American Business Online",
+			"client":"Google",
+			"description": "Googles US-wide programme to get all American businesses online",
+			"tags": ["js","python","app engine","django","nosql","app"],
+			"year": 2010,
+			"link":"americagetonline.com"
+		},
+		{
+			"name":"Google Engage",
+			"client":"Google",
+			"description": "Google's world-wide programme to extend the reach of its AdWords programme",
+			"tags": ["cloud","nosql","app engine","python","js","app"],
+			"year": 2011,
+			"link":"www.google.com/ads/engage2011"
+		},
+		{
+			"name":"Simple OAuth2",
+			"client":"self",
+			"description": "A standalone, simple Python module to allow apps to authenticate with Google, Twitter, Facebook and other OAuth 2 API providers",
+			"tags": ["google apis"],
+			"year": 2011,
+			"github":"simple_oauth2"
+		},
+		{
+			"name":"Fast REST",	
+			"client":"Google",
+			"description": "An easy to use, high level REST library that doesn't require boilerplate code, and takes advantage of Google App Engine's network infrastructure.",
+			"tags": ["library","open source","app engine"],
+			"year": 2011,
+			"github":"fast_rest"
+		},
+		{
+			"name":"Training and Consulting",	
+			"client":"Red Hat",
+			"description": "Linux training and consulting for Red Hat's Enterprise customers. I've trained a few hundred RHCEs and RHCAs. I'm the 'mikem' in the Red Hat Enterprise Linux 'sudoers' file! ",
+			"tags": ["training","linux","public speaking","writing and editing","Open Source"],
+			"year": 2004
+		},
+		{
+			"name":"User Privilege Revalidation Tools",	
+			"client":"IBM Global Services",
+			"description": "Compliance tools to collect, summarize, data of thousands of servers and then revalidate the data with user's managers",
+			"tags": ["python","linux","ldap","XML","web scraping"],
+			"year": 2007
+		},
+					
+		{
+			"name":"Columnist, Real World Computing",	
+			"client":"PC Authority",
+			"description": "Monthly columns on Linux, Microsoft, 3G, content management, and other topics of interest to readers",
+			"tags": ["linux","server","writing and editing"],
+			"year": 2003
+		},
+		{
+			"name":"Knife Party",	
+			"client":"self",
+			"description": "A ticket sniper for EventBrite events",
+			"tags": ["Chrome Extension","js","Open Source","web scraping"],
+			"year": 2012,
+			"github":"knife_party"
+		},
+		{
+			"name":"Python Docx",	
+			"client":"self",
+			"description": "Create, read, and edit Microsoft Word OpenXML documents from pure Python.",
+			"tags": ["Open Source","XML","library"],
+			"year": 2008,
+			"github":"docx"
+		},
+		{
+			"name":"Founder, Australian Linux Journal",	
+			"client":"self",
+			"description": "Sourced writers, provided briefs, copy-edited, and interviewed for the first two issues of this Asia/Pacific magazine focusing on Linux and Open Source",
+			"tags": ["writing and editing","linux","founder"],
+			"year": 2004
+		},
+		{
+			"name":"Google Germany 10th Birthday",	
+			"client":"Google",
+			"description": "A visualization of Google Germany's history using HTML5 canvas.",
+			"tags": ["js","html5","artwork"],
+			"year": 2011
+		},
+		{
+			"name":"Resilience",	
+			"client":"self",
+			"description": "A tool to run and re-run tasks in cloud environments without performance guarantees. Allows developers to specify known exception scenarios, an acceptable amount of errors, backoffs, logging during these incidences, and proper crash reports for unexpected conditions.",
+			"tags": ["library","python","app engine"],
+			"year": 2011
+		},
+		{
+			"name":"World View",	
+			"client":"Google",
+			"description": "An app to collect questions from citiens all over the world, and addressed those questions to world leaders - including Barack Obama, Bono, David Cameron, Angela Merkel and Nicholas Sarkozy - in live YouTube interviews watched by millions of people.",
+			"tags": ["app engine","google apis","python","js","youtube"],
+			"year": 2011,
+			"link":"youtube.com/worldview"
+		},
+		{
+			"name":"TickTick Boom",	
+			"client":"self",
+			"description": "TickTickBoom is an unoffical port of Tweetie (Twitter for Mac) user interface to Chrome. Features include proactive notification of tweets,a direct message account, and the Tweetie multi-panel UI. It also uses recent technologies including Chrome messaging, webkit filters, and Coffeescript behind the scenes. ",
+			"tags": ["twitter api","js","chrome extension"],
+			"year": 2011
+		},
+		{
+			"name":"TickTick Boom",	
+			"client":"self",
+			"description": "TickTickBoom is an unoffical port of Tweetie (Twitter for Mac) user interface to Chrome. Features include proactive notification of tweets,a direct message account, and the Tweetie multi-panel UI. It also uses recent technologies including Chrome messaging, webkit filters, and Coffeescript behind the scenes. It's unfinished, but accomplished it's job of teaching the author how to make very large Chrome extensions.",
+			"tags": ["twitter api","js","chrome extension"],
+			"year": 2011,
+			"github":"ticktickboom"
+		},
+		{
+			"name":"URLSign",	
+			"client":"self",
+			"description": "A short and simple tool to create signed URLs, so a browser redirected from site A to site B, site B know the information came from site A.",
+			"tags": ["open source","python"],
+			"year": 2012
+		},
+		{
+			"name":"Sushi and Tears",	
+			"client":"self",
+			"description": "A django tool that replaces the aging Unix gettext() system, requiring manual .po file uploads, with Google Spreadsheets, accessed vis oauth",
+			"tags": ["google apis","python","django"],
+			"year": 2012
+		},
+		{
+			"name":"Software Development for Lawyers",	
+			"client":"self",
+			"description": "A presentation for the Communications, Media, and Technology team from UK Law Firm Norton Rose. Topics convered include software development cycle, Open Source, and related matters.",
+			"tags": ["public speaking","open source"],
+			"year": 2009
+		},
+		{
+			"name":"The Path",	
+			"client":"self",
+			"description": "One of the largest levels ever built for ifrst person shooter Doom II, bypassing many of the contraints of the Doom engine including mechanical objects, deep water, times events, and more.",
+			"tags": ["artwork","open source"],
+			"year": 1995
+		}
+					
+	]
+}
