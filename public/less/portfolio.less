@@ -6,12 +6,6 @@
 @secondary_base_font_size: 80%;
 @golden_ratio: 1.6;
 
-body {
-	font-size: @primary_base_font_size;
-	background-color: @white;
-	color: @darkgrey;
-}
-
 .centered_on_page {
 	max-width: 960px;
 	margin: 0 auto;	
@@ -20,6 +14,24 @@ body {
 .uppercase {
 	text-transform: uppercase;
 	letter-spacing: 1pt;
+}
+
+.quote {
+	font-style: oblique;
+}
+
+.quote:before {
+	content: "“";
+}
+
+.quote:after {
+	content: "”";
+}
+
+body {
+	font-size: @primary_base_font_size;
+	background-color: @white;
+	color: @darkgrey;
 }
 
 header {
@@ -49,14 +61,13 @@ p.slogan {
 	color: @orange;
 }
 
-p#twitter {
+p#last_tweet {
 	float: right;
 	text-align: right;
 	font-size: @secondary_base_font_size;
 	border-top: 1px solid @darkgrey;
 	border-bottom: 1px solid @darkgrey;
 	padding: 10px;
-	font-style: oblique;
 }
 
 /* Nav */
@@ -136,8 +147,9 @@ li.work {
 	position: relative;
 }
 
-h2 {
+li.work > h2 {
 	max-width: 80%;
+	float: left;
 }
 
 .year {
