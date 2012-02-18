@@ -1,5 +1,6 @@
 @darkgrey: #222;
 @orange: hsl(378, 100%, 47%);
+@headerblue: hsl(202, 120%, 20%);
 @white: whiteSmoke;
 @headingfont: 'BellMTRegular';
 @primary_base_font_size: 100%;
@@ -73,31 +74,34 @@ p#last_tweet {
 /* Nav */
 
 nav {
-	background-color: @darkgrey;
+	background-color: @headerblue;
 	padding: 5px 40px;
 }
 
-nav > #highlight {
+nav > #nav_container > #highlight {
 	background-color: @white;
 	width: 59px;
 	height: 1px;
-	left: 165px;
+	left: 15px;
 	top: 15px;
 	position: relative;
 }
 
-nav > ul {
+nav > #nav_container {
 	.centered_on_page;
 }
 
-nav > ul > li > a:link,
-nav > ul > li > a:visited,
-nav > ul > li > a:hover,
-nav > ul > li > a:active {
+nav > #nav_container > ul {
+	max-width: 320px;
+	position: relative;
+}
+
+
+nav > #nav_container > ul > li > a {
 	color: white;
 }
 
-nav > ul > li {
+nav > #nav_container > ul > li {
 	float: left;
 	padding: 0 20px;
 	font-size: 64%;
