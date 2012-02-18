@@ -21,8 +21,8 @@ $(function(){
 			})
 			return sorted_works					
 		};
-				
-		var enable_tags = function(event){	
+		
+		$(document).on('click', '#works > li > ul > li.tag', function(event){	
 			// Sort works when tags clicked 
 			console.log('Tag clicked')
 			var sort_key = $(event.target).text();
@@ -35,12 +35,13 @@ $(function(){
 			$('#sorted_works').replaceWith(sorted_portfolio);
 				
 			$('#works').quicksand( $('#sorted_works li.work') );
-		};
-					
-		$('#works > li > ul > li.tag').live('click', enable_tags);
-		$('#works > li > ul > li.tag').live("mouseenter", function() {
+		});
+		
+		// Mouseover animation for tags 			
+		var tags = '#works > li > ul > li.tag';
+		$(document).on("mouseenter", tags, function() {
 			$(event.target).animate({ backgroundColor: "#222" }, 'slow');
-		}).live("mouseleave", function() {
+		}).on("mouseleave", tags, function() {
 			$(event.target).animate({ backgroundColor: "#777" }, 'slow');
 		});
 					
