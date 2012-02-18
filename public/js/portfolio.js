@@ -46,8 +46,10 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	});
 					
 });
+
+var nav_selector = 'nav > ul > li > a';
 				
-$(document).on('click', 'nav > ul > li > a', function(event) {
+$(document).on('click', nav_selector, function(event) {
 	console.log('nav bar clicked');
 	var $target = $(event.target);
 	var destination = $target.attr('href');
@@ -57,5 +59,19 @@ $(document).on('click', 'nav > ul > li > a', function(event) {
 		$('section').fadeOut();	
 	});
 	event.preventDefault();	
+});
+
+/* Slide nav highlight around as links are hovered */
+$(document).on('hover', nav_selector, function(event) {
+	console.log('nav bar hovered');
+	var offset = -45;
+	var extra_width = 10;
+	var nav_item = $(event.target);
+    var new_position = nav_item.position();
+    var new_width = nav_item.outerWidth(true);
+    $('nav > #highlight').stop().animate({
+        'left': new_position.left + offset,
+        'width': new_width + extra_width
+    });
 });
 	

@@ -77,6 +77,15 @@ nav {
 	padding: 5px 40px;
 }
 
+nav > #highlight {
+	background-color: @white;
+	width: 59px;
+	height: 1px;
+	left: 165px;
+	top: 15px;
+	position: relative;
+}
+
 nav > ul {
 	.centered_on_page;
 }
@@ -238,10 +247,7 @@ li {
 	list-style-type: none;
 }
 
-a:link, a:visited, a:hover, a:active { 
-	color: @darkgrey
-}
-
-a:link, a:visited, a:active { 
-	text-decoration: none
+a { 
+	color: @darkgrey;
+	text-decoration: none;
 }
