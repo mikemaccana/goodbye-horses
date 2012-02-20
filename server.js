@@ -34,7 +34,6 @@ app = {
 	
 	// Respond with a not found
 	notFound: function (response) {
-	    console.log('Ran not found');
 	    response.writeHead(404, {});
 	    response.end('Not found');
 	},
@@ -54,17 +53,11 @@ app = {
 		var full_filename = app.PUBLIC+request.url;
 		console.log('Opening: "'+full_filename+'"');		
 		fs.readFile(full_filename, function(error, data) {
-			if ( error) {
-				console.log('there was an error')
-				console.log(error)
-				
+			if ( error) {				
 				return app.notFound(response);
 			    response.writeHead(404, {});
-			    response.end('Not found');
-				
+			    response.end('Not found');				
 			} else {
-				console.log('no error')
-				
 				response.writeHead(200, {'Content-Type': 'text/html'});
 				return response.end(data);   
 			}
@@ -87,6 +80,12 @@ app = {
 		// Patterns to match incoming URLs to 
 		routes = [
 			['templates.*',app.serveFile],
+			['js.*',app.serveFile],
+			['json.*',app.serveFile],
+			['fonts.*',app.serveFile],
+			['images.*',app.serveFile],
+			['css.*',app.serveFile],
+			['less.*',app.serveFile],
 			['favicon.ico',app.serveFile],
 			['api',app.serveAPI]
 		]

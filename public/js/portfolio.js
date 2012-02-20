@@ -1,7 +1,7 @@
 // No waiting for document ready, because we don't have a document yet!
 
 // Fetch and fill in the portfolio
-$.getJSON('../public/json/portfolio.json', function(portfolio_data) {
+$.getJSON('../json/portfolio.json', function(portfolio_data) {
 
 	// Fill in our template and add to document					
 	portfolio_data.works.forEach( function(work) {
