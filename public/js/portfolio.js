@@ -53,31 +53,34 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	});
 	
 	// Set up moving underline
-    var $current_link
+    var $hovered_link
+	var width_offset = -30
+	var left_offset = - (width_offset/2);
+
 	var $nav_container = $("#nav_container > ul");
 	
     $nav_container.append("<li id='highlight'></li>");
     var $highlight = $("#highlight");
     $highlight
-        .width($(".current_page_item").width())
-        .css("left", $(".current_page_item a").position().left)
+        .width($(".current_page_item").width() + width_offset)
+        .css("left", $(".current_page_item a").position().left + left_offset)
         .data("original_left", $highlight.position().left)
         .data("original_width", $highlight.width());
 
 	// Slide underline when hovered, back when unhovered 	
     $("#nav_container > ul > li a").hover(function(event) {
-        $current_link = $(event.target);
-        var new_left_position = $current_link.position().left;
-        var new_width = $current_link.parent().width();
+        $hovered_link = $(event.target);
+        var new_left_position = $hovered_link.position().left + left_offset;
+        var new_width = $hovered_link.parent().width() + width_offset;
         $highlight.stop().animate({
             left: new_left_position,
             width: new_width
-        });
+        },'fast');
     }, function() {
         $highlight.stop().animate({
             left: $highlight.data("original_left"),
             width: $highlight.data("original_width")
-        });
+        },'fast');
     });
 	
 					
