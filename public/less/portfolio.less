@@ -78,34 +78,36 @@ nav {
 	padding: 5px 40px;
 }
 
-nav > #nav_container > #highlight {
-	background-color: @white;
-	width: 59px;
-	height: 1px;
-	left: 15px;
-	top: 15px;
-	position: relative;
-}
-
 nav > #nav_container {
 	.centered_on_page;
 }
 
-nav > #nav_container > ul {
-	max-width: 320px;
-	position: relative;
+#nav_container > ul { 
+	margin: 0 auto; 
+	position: relative; 
 }
 
-
-nav > #nav_container > ul > li > a {
-	color: white;
+#nav_container > ul > li { 
+	display: inline; 
 }
 
-nav > #nav_container > ul > li {
-	float: left;
-	padding: 0 20px;
+#nav_container > ul > li > a { 
+	color: @white; 
 	font-size: 64%;
 	.uppercase;
+	display: block; 
+	float: left; 
+	padding: 0 20px; 
+	text-decoration: none; 
+}
+
+#highlight { 
+	position: absolute; 
+	bottom: 0px; 
+	left: 0; 
+	width: 100px; 
+	height: 1px; 
+	background: @white; 
 }
 
 /* Blog */

@@ -10,6 +10,13 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	portfolio_data['year'] = new Date().getFullYear();
 	var portfolio = ich.portfolio_template(portfolio_data);
 	$('body').append(portfolio);
+	
+	// Get most recent tweet
+	var most_recent_tweet_url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name='+portfolio_data['twitter']+'&count=1';
+	$.getJSON(most_recent_tweet_url), function (tweet_data) {
+		var tweet = tweet_data[0]['text']
+		$('p#last_tweet').text(tweet);
+	}
 			
 	var sort_works = function(sort_key) {
 		// Return a list of the work with the tag/sort_key mentioned
@@ -44,49 +51,36 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	}).on("mouseleave", tags, function() {
 		$(event.target).animate({ backgroundColor: "#777" }, 'slow');
 	});
+	
+	// Set up moving underline
+    var $current_link, new_left_position, new_width
+	var $nav_container = $("#nav_container > ul");
+    $nav_container.append("<li id='highlight'></li>");
+    var $highlight = $("#highlight");
+    $highlight
+        .width($(".current_page_item").width())
+        .css("left", $(".current_page_item a").position().left)
+        .data("original_left", $highlight.position().left)
+        .data("original_width", $highlight.width());
+
+	// Slide underline when hovered, back when unhovered 	
+    $("#nav_container > ul > li a").hover(function(event) {
+        $current_link = $(event.target);
+        new_left_position = $current_link.position().left;
+        new_width = $current_link.parent().width();
+        $highlight.stop().animate({
+            left: new_left_position,
+            width: new_width
+        });
+    }, function() {
+        $highlight.stop().animate({
+            left: $highlight.data("original_left"),
+            width: $highlight.data("original_width")
+        });
+    });
+	
 					
 });
-
-var nav_selector = 'nav > #nav_container > ul > li > a';
-				
-$(document).on('click', nav_selector, function(event) {
-	console.log('nav bar clicked');
-	var $target = $(event.target);
-	$(nav_selector).not($target).removeClass('selected');
-	$(nav_item).addClass('selected');
-	var destination = $target.attr('href');
-	var title = $target.text();
-	$.get(destination, function() {
-		history.pushState({}, title, destination);	
-		$('section').fadeOut();	
-	});
-	event.preventDefault();	
-});
-
-/* Slide nav highlight around as links are hovered */
-var select_nav_item = function(nav_item) {
-	var offset = -5;
-	var extra_width = 10;
 	
-    var new_position = nav_item.position();
-    var new_width = nav_item.outerWidth(true);
-    $('nav > #nav_container > #highlight').stop().animate({
-        'left': new_position.left + offset,
-        'width': new_width + extra_width
-    }, 'fast');
-	
-}
 
-$(document).on('hover', nav_selector, function(event) {
-	console.log('nav bar item hovered');
-	var nav_item = $(event.target);
-    select_nav_item(nav_item);
-});
 
-// When the mouse leaves the ul, revert back to selected item
-$(document).on('hover', 'nav > #nav_container', function(){}, function(event){
-	console.log('nav bar un-hovered');
-	select_nav_item($('a.selected'));
-}) 
-
-	
