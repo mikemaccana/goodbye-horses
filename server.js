@@ -24,13 +24,13 @@ _.str = require('underscore.string');
 _.mixin(_.str.exports());
 
 app = {
-  PUBLIC: './public/',
+	PUBLIC: './public/',
   
 	// Start server on port
-  startServer: function(address, port) {
-    http.createServer(app.incoming).listen(port, address);
-    console.log('Server running at http://'+address+':'+port);
-  },
+	startServer: function(address, port) {
+		http.createServer(app.incoming).listen(port, address);
+		console.log('Server running at http://'+address+':'+port);
+	},
 	
 	// Respond with a not found
 	notFound: function (response) {
@@ -43,23 +43,24 @@ app = {
 	cleanRequest: function (request) {
 		request.url = _.trim(request.url, '/').toLowerCase();
 		if ( request.url === '') {
-			request.url = 'index.html'		
+			request.url = 'templates/index.html'		
 		}
+		console.log('Request URL is now: '+request.url)
 		return request
 	},
 	
 	// End response by serving filename
-  serveFile: function(request, response) {
+	serveFile: function(request, response) {
 		var full_filename = app.PUBLIC+request.url;
-		console.log('Opening: '+full_filename)
-    fs.readFile(full_filename, function(error, data) {
-      if ( error) {
-	      return app.notFound(response);
-      }
-      response.writeHead(200, {'Content-Type': 'text/html'});
-      return response.end(data);      
-    })
-  }, 
+		console.log('Opening: '+full_filename);
+		fs.readFile(full_filename, function(error, data) {
+		  if ( error) {
+		      return app.notFound(response);
+		  }
+		  response.writeHead(200, {'Content-Type': 'text/html'});
+		  return response.end(data);      
+		})
+	}, 
 	
 	// Serve the TronCAT API
 	serveAPI: function(request, response) {
@@ -68,32 +69,29 @@ app = {
 	},
   
 	// Handle incoming requests
-  incoming: function (request, response) {
+	incoming: function (request, response) {
 		console.log('\nIncoming request to: '+request.url);
 		request = app.cleanRequest(request);
 		console.log('Request for "'+request.url+'"');
 		
 		// Patterns to match incoming URLs to 
 		routes = [
-			['index.html',app.serveFile],
+			['templates/index.html',app.serveFile],
 			['favicon.ico',app.serveFile],
 			['api',app.serveAPI]
 		]
 		
 		var routes_length = routes.length;
 		
-		for ( var count = 0; count < routes_length; count++ ) {
-			var route = routes[count]
-			
+		routes.forEach( function(route) {
 			if ( request.url === route[0] ) {
 				console.log('Yaay. '+request.url+' matched '+route[0])
 				return route[1](request, response);
-			}
-		}
+			}			
+		})
 		
 		return app.notFound(response); 
-	},	
-	
+	},		
 }
 _.bindAll(app);
 
