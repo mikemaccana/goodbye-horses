@@ -18,6 +18,7 @@
 // Modules
 var http = require('http'), 
 	fs = require('fs'),
+	mime = require('mime'),
 	_ = require('underscore');
 _.str = require('underscore.string');
 // Add underscore.string to underscore
@@ -58,7 +59,8 @@ app = {
 			    response.writeHead(404, {});
 			    response.end('Not found');				
 			} else {
-				response.writeHead(200, {'Content-Type': 'text/html'});
+				type = mime.lookup(full_filename);
+				response.writeHead(200, {'Content-Type': type});
 				return response.end(data);   
 			}
 			   
