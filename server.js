@@ -34,9 +34,9 @@ app = {
 	
 	// Respond with a not found
 	notFound: function (response) {
-    console.log('Not found');
-    response.writeHead(404, {});
-    response.end('Not found');
+	    console.log('Ran not found');
+	    response.writeHead(404, {});
+	    response.end('Not found');
 	},
 
 	// Normalize URLs. Lowercase, strip leading trailing slahes, handle indexing. 
@@ -52,13 +52,23 @@ app = {
 	// End response by serving filename
 	serveFile: function(request, response) {
 		var full_filename = app.PUBLIC+request.url;
-		console.log('Opening: '+full_filename);
+		console.log('Opening: "'+full_filename+'"');		
 		fs.readFile(full_filename, function(error, data) {
-		  if ( error) {
-		      return app.notFound(response);
-		  }
-		  response.writeHead(200, {'Content-Type': 'text/html'});
-		  return response.end(data);      
+			if ( error) {
+				console.log('there was an error')
+				console.log(error)
+				
+				return app.notFound(response);
+			    response.writeHead(404, {});
+			    response.end('Not found');
+				
+			} else {
+				console.log('no error')
+				
+				response.writeHead(200, {'Content-Type': 'text/html'});
+				return response.end(data);   
+			}
+			   
 		})
 	}, 
 	
@@ -76,21 +86,27 @@ app = {
 		
 		// Patterns to match incoming URLs to 
 		routes = [
-			['templates/index.html',app.serveFile],
+			['templates.*',app.serveFile],
 			['favicon.ico',app.serveFile],
 			['api',app.serveAPI]
 		]
 		
-		var routes_length = routes.length;
+		var found = false;
 		
 		routes.forEach( function(route) {
-			if ( request.url === route[0] ) {
-				console.log('Yaay. '+request.url+' matched '+route[0])
+			route_expression = new RegExp(route[0])
+			if ( route_expression.test(request.url) ) {
+				console.log('Yaay. '+request.url+' matched '+route[0]);
+				found = true;
 				return route[1](request, response);
 			}			
 		})
 		
-		return app.notFound(response); 
+		if ( ! found ) {
+			console.log('No routes matched :"'+request.url+'"')
+			return app.notFound(response); 
+		}
+			
 	},		
 }
 _.bindAll(app);
