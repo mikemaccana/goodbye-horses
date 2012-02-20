@@ -53,8 +53,9 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	});
 	
 	// Set up moving underline
-    var $current_link, new_left_position, new_width
+    var $current_link
 	var $nav_container = $("#nav_container > ul");
+	
     $nav_container.append("<li id='highlight'></li>");
     var $highlight = $("#highlight");
     $highlight
@@ -66,8 +67,8 @@ $.getJSON('../public/json/portfolio.json', function(portfolio_data) {
 	// Slide underline when hovered, back when unhovered 	
     $("#nav_container > ul > li a").hover(function(event) {
         $current_link = $(event.target);
-        new_left_position = $current_link.position().left;
-        new_width = $current_link.parent().width();
+        var new_left_position = $current_link.position().left;
+        var new_width = $current_link.parent().width();
         $highlight.stop().animate({
             left: new_left_position,
             width: new_width
