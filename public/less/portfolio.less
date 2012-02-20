@@ -2,10 +2,15 @@
 @orange: hsl(378, 100%, 47%);
 @headerblue: hsl(202, 120%, 20%);
 @white: whiteSmoke;
-@headingfont: 'BellMTRegular';
 @primary_base_font_size: 100%;
 @secondary_base_font_size: 80%;
 @golden_ratio: 1.6;
+
+.headingfont {
+    font-family: 'BellMTRegular';
+    font-weight: normal;
+    font-style: normal;
+}
 
 .centered_on_page {
 	max-width: 960px;
@@ -46,12 +51,12 @@ header {
 
 h1 {
 	font-size: @primary_base_font_size * @golden_ratio;
-	font-family: @headingfont;
+	.headingfont;
 }
 
 h2 {
 	font-size: @primary_base_font_size * @golden_ratio;
-	font-family: @headingfont;
+	.headingfont;
 }
 
 p.slogan {
@@ -222,15 +227,12 @@ section.sidebar > h2 {
 /* Fonts */
 
 @font-face {
-    font-family: @headingfont;
+	.headingfont;
     src: url('../fonts/bell_mt-webfont.eot');
     src: url('../fonts/bell_mt-webfont.eot?#iefix') format('embedded-opentype'),
          url('../fonts/bell_mt-webfont.woff') format('woff'),
          url('../fonts/bell_mt-webfont.ttf') format('truetype'),
          url('../fonts/bell_mt-webfont.svg#BellMTRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
 }
 
 /* Hacks */
