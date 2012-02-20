@@ -88,6 +88,7 @@ app = {
 			['images.*',app.serveFile],
 			['css.*',app.serveFile],
 			['less.*',app.serveFile],
+			['mustache.*',app.serveFile],
 			['favicon.ico',app.serveFile],
 			['api',app.serveAPI]
 		]

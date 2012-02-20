@@ -1,90 +1,63 @@
 // No waiting for document ready, because we don't have a document yet!
-
-// Fetch and fill in the portfolio
-$.getJSON('../json/portfolio.json', function(portfolio_data) {
-
-	// Fill in our template and add to document					
-	portfolio_data.works.forEach( function(work) {
-		work['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase();
-	}) 
-	portfolio_data['year'] = new Date().getFullYear();
-	var portfolio = ich.portfolio_template(portfolio_data);
-	$('body').append(portfolio);
+$.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
+	ich.addTemplate('portfolio_template', portfolio_template_string);
 	
-	// Get most recent tweet
-	var most_recent_tweet_url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name='+portfolio_data['twitter']+'&count=1';
-	$.getJSON(most_recent_tweet_url), function (tweet_data) {
-		var tweet = tweet_data[0]['text']
-		$('p#last_tweet').text(tweet);
-	}
-			
-	var sort_works = function(sort_key) {
-		// Return a list of the work with the tag/sort_key mentioned
-		var sorted_works = [];
-		portfolio_data.works.forEach(function(work) {
-			if ( work.tags.indexOf(sort_key)+1 ) {
-				sorted_works.push(work);
-			}
-		})
-		return sorted_works					
-	};
-		
-	$(document).on('click', '#works > li > ul > li.tag', function(event){	
-		// Sort works when tags clicked 
-		console.log('Tag clicked')
-		var sort_key = $(event.target).text();
-				
-		sorted_works = {
-			works: sort_works(sort_key)
+	console.log(portfolio_template_string);
+	
+	// Fetch and fill in the portfolio
+	$.getJSON('../json/portfolio.json', function(portfolio_data) {
+	
+		// Fill in our template and add to document					
+		portfolio_data.works.forEach( function(work) {
+			work['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase();
+		}) 
+		portfolio_data['year'] = new Date().getFullYear();
+		var portfolio = ich.portfolio_template(portfolio_data);
+		$('body').append(portfolio);
+	
+		// Get most recent tweet
+		/*var most_recent_tweet_url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name='+portfolio_data['twitter']+'&count=1';
+		$.getJSON(most_recent_tweet_url), function (tweet_data) {
+			var tweet = tweet_data[0]['text']
+			$('p#last_tweet').text(tweet);
 		}
+		*/
 				
-		var sorted_portfolio = ich.sorted_works_template(sorted_works);
-		$('#sorted_works').replaceWith(sorted_portfolio);
-				
-		$('#works').quicksand( $('#sorted_works li.work') );
-	});
-		
-	// Mouseover animation for tags 			
-	var tags = '#works > li > ul > li.tag';
-	$(document).on("mouseenter", tags, function() {
-		$(event.target).animate({ backgroundColor: "#222" }, 'slow');
-	}).on("mouseleave", tags, function() {
-		$(event.target).animate({ backgroundColor: "#777" }, 'slow');
-	});
-	
-	// Set up moving underline
-    var $hovered_link
-	var width_offset = -30
-	var left_offset = - (width_offset/2);
+		// Set up moving underline
+	    var $hovered_link
+		var width_offset = -30
+		var left_offset = - (width_offset/2);
 
-	var $nav_container = $("#nav_container > ul");
+		var $nav_container = $("#nav_container > ul");
 	
-    $nav_container.append("<li id='highlight'></li>");
-    var $highlight = $("#highlight");
-    $highlight
-        .width($(".current_page_item").width() + width_offset)
-        .css("left", $(".current_page_item a").position().left + left_offset)
-        .data("original_left", $highlight.position().left)
-        .data("original_width", $highlight.width());
+	    $nav_container.append("<li id='highlight'></li>");
+	    var $highlight = $("#highlight");
+	    $highlight
+	        .width($(".current_page_item").width() + width_offset)
+	        .css("left", $(".current_page_item a").position().left + left_offset)
+	        .data("original_left", $highlight.position().left)
+	        .data("original_width", $highlight.width());
 
-	// Slide underline when hovered, back when unhovered 	
-    $("#nav_container > ul > li a").hover(function(event) {
-        $hovered_link = $(event.target);
-        var new_left_position = $hovered_link.position().left + left_offset;
-        var new_width = $hovered_link.parent().width() + width_offset;
-        $highlight.stop().animate({
-            left: new_left_position,
-            width: new_width
-        },'fast');
-    }, function() {
-        $highlight.stop().animate({
-            left: $highlight.data("original_left"),
-            width: $highlight.data("original_width")
-        },'fast');
-    });
+		// Slide underline when hovered, back when unhovered 	
+	    $("#nav_container > ul > li a").hover(function(event) {
+	        $hovered_link = $(event.target);
+	        var new_left_position = $hovered_link.position().left + left_offset;
+	        var new_width = $hovered_link.parent().width() + width_offset;
+	        $highlight.stop().animate({
+	            left: new_left_position,
+	            width: new_width
+	        },'fast');
+	    }, function() {
+	        $highlight.stop().animate({
+	            left: $highlight.data("original_left"),
+	            width: $highlight.data("original_width")
+	        },'fast');
+	    });
 	
 					
-});
+	});
+	
+})
 	
 
 

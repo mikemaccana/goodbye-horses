@@ -1,0 +1,51 @@
+<header>
+	<div id="header_and_slogan">
+		<h1>{{name}}</h1>
+		<p class="slogan">&mdash;{{ slogan }}</a>
+	</div>	
+	<p id="last_tweet" class="quote">
+		{{ last_tweet }}
+	</p>
+				
+	<div class="clearfix"></div>
+</header>
+<nav>
+	<div id="nav_container">
+		<ul>
+			<li class="current_page_item"><a href="#">Writing</a></li>
+			<li><a href="#">Work</a></li>
+			<li><a href="#">Art</a></li>
+			<li><a href="#">Contact</a></li>
+			<div class="clearfix"></div>
+		</ul>
+	<div class="clearfix"></div>	
+	</div>
+</nav>
+			
+<section class="maincontent">
+	<section class="main">
+		{{# articles}}
+			<article>
+				<h2>{{ title }}</h2>
+				<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
+				<p>{{ body }}</p>
+			</article>
+		{{/articles}}
+	</section>
+	<section class="sidebar">
+		<p class="bio">{{ bio }}</a>	
+		<h2>Contact</h2>
+		<address>
+			<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
+			<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
+		</address>
+					
+					
+	</section>
+</section>
+			
+
+<footer>
+	<p>&copy; {{ name }} {{ year }}</p>
+	<p id="footer_message">{{ footer }}</p>
+</footer>
