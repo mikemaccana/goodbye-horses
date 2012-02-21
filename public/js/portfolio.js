@@ -1,8 +1,17 @@
 // No waiting for document ready, because we don't have a document yet!
-$.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
+
+var path = window.location.pathname
+if ( path === "/" ) {
+	path = "portfolio"
+}
+
+var template_location = '../mustache/'+path+'.mustache'
+var template_data_location = '../json/'+path+'.json'
+
+$.get(template_location, function(portfolio_template_string) {
 	ich.addTemplate('portfolio_template', portfolio_template_string);
 	// Fetch and fill in the portfolio
-	$.getJSON('../json/portfolio.json', function(portfolio_data) {
+	$.getJSON(template_data_location, function(portfolio_data) {
 	
 		// Fill in our template and add to document					
 		portfolio_data.works.forEach( function(work) {
@@ -57,7 +66,9 @@ $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 		$nav_links.on('click', function(event) {
 			console.log('updating URL');
 			new_location = $(event.target).attr('href');
-			history.pushState({}, "page 2", new_location);
+			$.get('js/works.js', function(data) {
+				history.pushState({}, "page 2", new_location);
+			})
 			event.preventDefault();
 		});
 		
