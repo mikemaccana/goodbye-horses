@@ -27,9 +27,10 @@ $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 		var left_offset = - (width_offset/2);
 
 		var $nav_container = $("#nav_container > ul");
-	
+		var $nav_links = $("#nav_container > ul > li a"); 
 	    $nav_container.append("<li id='highlight'></li>");
 	    var $highlight = $("#highlight");
+		
 	    $highlight
 	        .width($(".current_page_item").width() + width_offset)
 	        .css("left", $(".current_page_item a").position().left + left_offset)
@@ -37,15 +38,16 @@ $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 	        .data("original_width", $highlight.width());
 
 		// Slide underline when hovered, back when unhovered 	
-	    $("#nav_container > ul > li a").hover(function(event) {
+	    $nav_links.on('mouseenter', function(event) {
 	        $hovered_link = $(event.target);
 	        var new_left_position = $hovered_link.position().left + left_offset;
 	        var new_width = $hovered_link.parent().width() + width_offset;
 	        $highlight.stop().animate({
 	            left: new_left_position,
 	            width: new_width
-	        },'fast');
-	    }, function() {
+	        },'fast')
+		})
+		$nav_links.on('mouseleave', function(event) {
 	        $highlight.stop().animate({
 	            left: $highlight.data("original_left"),
 	            width: $highlight.data("original_width")
