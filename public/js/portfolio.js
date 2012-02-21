@@ -1,9 +1,6 @@
 // No waiting for document ready, because we don't have a document yet!
 $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 	ich.addTemplate('portfolio_template', portfolio_template_string);
-	
-	console.log(portfolio_template_string);
-	
 	// Fetch and fill in the portfolio
 	$.getJSON('../json/portfolio.json', function(portfolio_data) {
 	
@@ -13,6 +10,7 @@ $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 		}) 
 		portfolio_data['year'] = new Date().getFullYear();
 		var portfolio = ich.portfolio_template(portfolio_data);
+		
 		$('body').append(portfolio);
 	
 		// Get most recent tweet
