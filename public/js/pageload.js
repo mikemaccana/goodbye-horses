@@ -4,13 +4,14 @@ var nav_loaded = false;
 // Loads default page the first time you get this
 load_page(window.location.pathname);
 
-// Load template
+// Load template and template data for the path specified
 function load_page(path) {
 	
 	if ( path === "/" ) {
-		template_path = DEFAULT_PAGE
+		var template_path = DEFAULT_PAGE
+		var $append_to = $('body')
 	} else {
-		template_path = path
+		var template_path = path
 	}
 	console.log('real path is: '+path)
 	console.log('template path is: '+template_path)
@@ -31,11 +32,12 @@ function load_page(path) {
 			// Find append point.
 			// TODO: append point should be based on amount of slashes in URL
 			var $append_to
-			if ( $('.maincontent').length ) {
-				$append_to = $('.maincontent')		
-			} else {
+			
+			if ( path === "/" ) {
 				$append_to = $('body')
-			}	
+			} else {
+				$append_to = $('.maincontent')	
+			}
 			
 			// Append content
 			$append_to.fadeOut("fast", function(){
