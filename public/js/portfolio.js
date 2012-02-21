@@ -8,8 +8,8 @@ if ( path === "/" ) {
 var template_location = '../mustache/'+path+'.mustache'
 var template_data_location = '../json/'+path+'.json'
 
-$.get(template_location, function(portfolio_template_string) {
-	ich.addTemplate('portfolio_template', portfolio_template_string);
+$.get(template_location, function(template_data_string) {
+	ich.addTemplate('portfolio_template', template_data_string);
 	// Fetch and fill in the portfolio
 	$.getJSON(template_data_location, function(portfolio_data) {
 	
