@@ -3,9 +3,22 @@ var DAMN_FAST = 100;
 var nav_loaded = false;
 var templates_loaded = [];
 
-// Loads default page the first time you get this
-load_page(window.location.pathname);
+// Load nav, and default page the first time you get this file
+if ( ! nav_loaded ) {
+	console.log('Setting up nav for the first time');
+	setup_navigation();			
+}
 
+// Load a template if it hasn't been loaded before
+function add_template_if_necessary(template_path, template_data_string) {
+	if ( templates_loaded.indexOf(template_path) === -1  ) {
+		console.log('Adding new template :'+template_path);
+		// Add the template to ICHasMustache's list of templates (name is the path)
+		ich.addTemplate(template_path, template_data_string);
+		templates_loaded.push(template_path);
+	} 
+}
+	
 // Load template and template data for the path specified
 function load_page(path) {
 	
@@ -21,12 +34,9 @@ function load_page(path) {
 	var template_location = '../mustache/'+template_path+'.mustache'
 	var template_data_location = '../json/'+template_path+'.json'
 	$.get(template_location, function(template_data_string) {
-		// Add the template to ICHasMustache's list of templates (name is the path)
-		if ( templates_loaded.indexOf(template_path) === -1  ) {
-			console.log('Adding new template :'+template_path);
-			ich.addTemplate(template_path, template_data_string);
-			templates_loaded.push(template_path);
-		} 
+		
+		add_template_if_necessary(template_path, template_data_string)
+		
 		// Fetch and fill in the template
 		$.getJSON(template_data_location, function(portfolio_data) {
 	
@@ -37,13 +47,8 @@ function load_page(path) {
 			
 			// Find append point.
 			// TODO: append point should be based on amount of slashes in URL
-			var $append_to
+			var $append_to = $('.maincontent')	
 			
-			if ( path === "/" ) {
-				$append_to = $('body')
-			} else {
-				$append_to = $('.maincontent')	
-			}
 			
 			// Append content
 			$append_to.fadeOut("fast", function(){
@@ -53,11 +58,6 @@ function load_page(path) {
 						history.pushState({}, "some title", path);
 					}
 			
-					// Load nav if we haven't loaded it before
-					if ( ! nav_loaded ) {
-						console.log('Setting up nav for the first time');
-						setup_navigation()				
-					}
 				});
 			})
 			
@@ -68,53 +68,77 @@ function load_page(path) {
 	})
 }
 
+// Setup navigation
 function setup_navigation() {
-	// Set up moving underline
-    var $hovered_link
-	var width_offset = -30
-	var left_offset = - (width_offset/2);
+	nav_name = 'nav'
+	$.get('/mustache/'+nav_name+'.mustache', function(template_data_string) {
+		
+		$.getJSON('/json/'+nav_name+'.json', function(portfolio_data) {
+			
+			// Fill in our template and add to document		
+			add_template_if_necessary(nav_name, template_data_string)	
+					
+			var html = ich[nav_name](portfolio_data);
+			$('body').append(html);
+			
+			// Set up moving underline
+		    var $hovered_link
+			var width_offset = -30
+			var left_offset = - (width_offset/2);
 
-	var $nav_container = $("#nav_container > ul");
-	var $nav_links = $("#nav_container > ul > li a"); 
-    $nav_container.append("<li id='highlight'></li>");
-    var $highlight = $("#highlight");
+			var $nav_container = $("#nav_container > ul");
+			var $nav_links = $("#nav_container > ul > li a"); 
+		    $nav_container.append("<li id='highlight'></li>");
+		    var $highlight = $("#highlight");
 		
-    $highlight
-        .width($(".current_page_item").width() + width_offset)
-        .css("left", $(".current_page_item a").position().left + left_offset)
-        .data("original_left", $highlight.position().left)
-        .data("original_width", $highlight.width());
+		    $highlight
+		        .width($(".current_page_item").width() + width_offset)
+		        .css("left", $(".current_page_item a").position().left + left_offset)
+		        .data("original_left", $highlight.position().left)
+		        .data("original_width", $highlight.width());
 
-	// Slide underline when hovered, back when unhovered 	
-    $nav_links.on('mouseenter', function(event) {
-        $hovered_link = $(event.target);
-        var new_left_position = $hovered_link.position().left + left_offset;
-        var new_width = $hovered_link.parent().width() + width_offset;
-        $highlight.stop().animate({
-            left: new_left_position,
-            width: new_width
-        },DAMN_FAST)
-	})
-	$nav_links.on('mouseleave', function(event) {
-        $highlight.stop().animate({
-            left: $highlight.data("original_left"),
-            width: $highlight.data("original_width")
-        },DAMN_FAST);
-    });
+			// Slide underline when hovered, back when unhovered 	
+		    $nav_links.on('mouseenter', function(event) {
+		        $hovered_link = $(event.target);
+		        var new_left_position = $hovered_link.position().left + left_offset;
+		        var new_width = $hovered_link.parent().width() + width_offset;
+		        $highlight.stop().animate({
+		            left: new_left_position,
+		            width: new_width
+		        },DAMN_FAST)
+			});
+			$nav_links.on('mouseleave', function(event) {
+		        $highlight.stop().animate({
+		            left: $highlight.data("original_left"),
+		            width: $highlight.data("original_width")
+		        },DAMN_FAST);
+		    });
 		
-	$nav_links.on('click', function(event) {
-		if (history.pushState) {
-			console.log('updating URL');
-			new_location = $(event.target).attr('href');
-			load_page(new_location);
-			event.preventDefault();
-		} else {
-			console.log('This browser is ghetto. Full reload for you.')
-		}
+			$nav_links.on('click', function(event) {
+				if (history.pushState) {
+					console.log('updating URL');
+					new_location = $(event.target).attr('href');
+					load_page(new_location);
+					event.preventDefault();
+				} else {
+					console.log('This browser is ghetto. Full reload for you.')
+				}
 		
-	});
+			});
 	
-	nav_loaded = true;
+			nav_loaded = true;
+			
+			// Load rest of the page
+			load_page(location.pathname);
+			
+		})
+		
+		
+		
+	})		
+		
+	
+	
 }
 
 
