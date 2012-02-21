@@ -53,6 +53,14 @@ $.get("../mustache/portfolio.mustache", function(portfolio_template_string) {
 	            width: $highlight.data("original_width")
 	        },'fast');
 	    });
+		
+		$nav_links.on('click', function(event) {
+			console.log('updating URL');
+			new_location = $(event.target).attr('href');
+			history.pushState({}, "page 2", new_location);
+			event.preventDefault();
+		});
+		
 	
 					
 	});
