@@ -1,6 +1,7 @@
 var DEFAULT_PAGE = "blog"
 var DAMN_FAST = 100;
 var nav_loaded = false;
+var templates_loaded = [];
 
 // Loads default page the first time you get this
 load_page(window.location.pathname);
@@ -21,7 +22,11 @@ function load_page(path) {
 	var template_data_location = '../json/'+template_path+'.json'
 	$.get(template_location, function(template_data_string) {
 		// Add the template to ICHasMustache's list of templates (name is the path)
-		ich.addTemplate(template_path, template_data_string);
+		if ( templates_loaded.indexOf(template_path) === -1  ) {
+			console.log('Adding new template :'+template_path);
+			ich.addTemplate(template_path, template_data_string);
+			templates_loaded.push(template_path);
+		} 
 		// Fetch and fill in the template
 		$.getJSON(template_data_location, function(portfolio_data) {
 	
