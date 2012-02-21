@@ -82,7 +82,6 @@ app = {
 		// Patterns to match incoming URLs to 
 		routes = [
 			['templates|js|json|fonts|images|css|less|mustache|favicon.ico',app.serveFile],
-			['api',app.serveAPI]
 		]
 		
 		var found = false;
