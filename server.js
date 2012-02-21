@@ -81,15 +81,7 @@ app = {
 		
 		// Patterns to match incoming URLs to 
 		routes = [
-			['templates.*',app.serveFile],
-			['js.*',app.serveFile],
-			['json.*',app.serveFile],
-			['fonts.*',app.serveFile],
-			['images.*',app.serveFile],
-			['css.*',app.serveFile],
-			['less.*',app.serveFile],
-			['mustache.*',app.serveFile],
-			['favicon.ico',app.serveFile],
+			['templates|js|json|fonts|images|css|less|mustache|favicon.ico',app.serveFile],
 			['api',app.serveAPI]
 		]
 		
