@@ -1,4 +1,5 @@
-var DEFAULT_PAGE = "portfolio"
+var DEFAULT_PAGE = "blog"
+var DAMN_FAST = 100;
 var nav_loaded = false;
 
 // Loads default page the first time you get this
@@ -42,7 +43,7 @@ function load_page(path) {
 			// Append content
 			$append_to.fadeOut("fast", function(){
 				$append_to.empty();
-				$append_to.append(html).fadeIn('fast', function() {
+				$append_to.append(html).fadeIn(DAMN_FAST, function() {
 					if (history.pushState) {
 						history.pushState({}, "some title", path);
 					}
@@ -87,13 +88,13 @@ function setup_navigation() {
         $highlight.stop().animate({
             left: new_left_position,
             width: new_width
-        },'fast')
+        },DAMN_FAST)
 	})
 	$nav_links.on('mouseleave', function(event) {
         $highlight.stop().animate({
             left: $highlight.data("original_left"),
             width: $highlight.data("original_width")
-        },'fast');
+        },DAMN_FAST);
     });
 		
 	$nav_links.on('click', function(event) {
