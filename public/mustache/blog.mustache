@@ -1,25 +1,18 @@
-
-			
-<section class="maincontent">
-	<section class="main">
-		{{# articles}}
-			<article>
-				<h2>{{ title }}</h2>
-				<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
-				<p>{{ body }}</p>
-			</article>
-		{{/articles}}
-	</section>
-	<section class="sidebar">
-		<p class="bio">{{ bio }}</a>	
-		<h2>Contact</h2>
-		<address>
-			<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
-			<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
-		</address>
-					
-					
-	</section>
+<section class="main">
+	{{# articles}}
+		<article>
+			<h2>{{ title }}</h2>
+			<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
+			<p>{{ body }}</p>
+		</article>
+	{{/articles}}
 </section>
-			
+<section class="sidebar">
+	<p class="bio">{{ bio }}</a>	
+	<h2>Contact</h2>
+	<address>
+		<a class="email" href="mailto:{{ email }}">{{ email }}</a><br> 
+		<a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a>
+	</address>
+</section>			
 

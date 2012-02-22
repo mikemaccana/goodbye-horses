@@ -1,23 +1,21 @@
-<section class="maincontent">
-	<ul id="works">
-		{{# works}}
-			<li data-id="{{ slug_name }}" class="work">
-				<img src="http://lorempixel.com/240/135/"></src>
-				<h2>{{ name }}</h2>
-				<div class="year">{{ year }}</div>
-				<div class="clearfix"></div>
-				<p class="description">{{ description }}</a>
-				<ul>
-					{{# tags}}
-						<li class="tag">{{ . }}</li>
-					{{/tags}}
-				</ul>
-				{{#github}}<a href="http://www.github.com/mikemaccana/{{ github }}" class="github" target="_blank">On github &#0187;</a>{{/github}}
-			</li>
-		{{/works}}
-	</ul>
-	<div class="clearfix"></div>
-</section>
+<ul id="works">
+	{{# works}}
+		<li data-id="{{ slug_name }}" class="work">
+			<img src="http://lorempixel.com/240/135/"></src>
+			<h2>{{ name }}</h2>
+			<div class="year">{{ year }}</div>
+			<div class="clearfix"></div>
+			<p class="description">{{ description }}</a>
+			<ul>
+				{{# tags}}
+					<li class="tag">{{ . }}</li>
+				{{/tags}}
+			</ul>
+			{{#github}}<a href="http://www.github.com/mikemaccana/{{ github }}" class="github" target="_blank">On github &#0187;</a>{{/github}}
+		</li>
+	{{/works}}
+</ul>
+<div class="clearfix"></div>
 
 <ul id="sorted_works" class="hidden">
 	{{# works }}
