@@ -1,0 +1,22 @@
+<h2>Contact</h2>
+<address>
+	<section>
+		<h2>Email</h2>
+		<aside>
+			{{#email_intro}}
+				<p>{{ . }}</p>
+			{{/email_intro}}	
+		</aside>
+		<p>Email: <a class="email" href="mailto:{{ email }}">{{ email }}</a><p> 
+	</section>
+	
+	<section>	
+		<h2>Twitter</h2>	
+		<aside>
+			{{#twitter_intro}}
+				<p>{{ . }}</p>
+			{{/twitter_intro}}	
+		</aside>		
+		<p>Twitter: <a class="twitter" href="https://twitter.com/{{ twitter }}">@{{ twitter }}</a></p>
+	</section>
+</address>

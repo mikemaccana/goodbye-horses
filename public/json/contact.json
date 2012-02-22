@@ -1,1 +1,13 @@
-{}
+{
+	"email_intro": [
+		"I am available for contracted design and development work, as well as co-founder roles.",
+		"If you have something specific in mind, email is the best method to contact me on.",
+		"Regrettably I do not have the time to respond to every enquiry - if I'm interested, I will get back to you."
+	],	
+	"email": "mike@mikemaccana.com",
+	"twitter_intro": [
+		"If you'd like to generally keep in contact, I'd be delighted for you to follow me on Twitter:"
+	],
+	"twitter": "mikemaccana",
+	"github": "mikemaccana"
+}
