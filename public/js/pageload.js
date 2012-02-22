@@ -60,11 +60,7 @@ function load_page(path) {
 			
 				});
 			})
-			
-			
-					
-		});
-	
+		});	
 	})
 }
 
@@ -129,16 +125,9 @@ function setup_navigation() {
 			nav_loaded = true;
 			
 			// Load rest of the page
-			load_page(location.pathname);
-			
+			load_page(location.pathname);			
 		})
-		
-		
-		
 	})		
-		
-	
-	
 }
 
 
