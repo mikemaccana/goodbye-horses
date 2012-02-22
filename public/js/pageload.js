@@ -103,8 +103,8 @@ function setup_navigation() {
 			// Set up moving underline
 		    var $hovered_link
 
-			var $nav_container = $("#nav_container > ul");
-			var $nav_links = $("#nav_container > ul > li a"); 
+			var $nav_container = $("nav ul");
+			var $nav_links = $("nav a"); 
 		    $nav_container.append("<li id='highlight'></li>");
 		    var $highlight = $("#highlight");
 		
