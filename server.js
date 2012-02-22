@@ -42,10 +42,12 @@ app = {
 	// Normalize URLs. Lowercase, strip leading trailing slahes, handle indexing. 
 	cleanRequest: function (request) {
 		request.url = _.trim(request.url, '/').toLowerCase();
-		if ( request.url === '') {
+		var top_level_pages = ['','work','art','contact']
+		if ( ! (top_level_pages.indexOf(request.url) === -1) ) {
+			console.log('found in top level')
 			request.url = 'templates/index.html'		
 		}
-		console.log('Request URL is now: '+request.url)
+		console.log('Cleaned request URL is: "'+request.url+'"')
 		return request
 	},
 	
