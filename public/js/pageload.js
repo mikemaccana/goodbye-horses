@@ -2,6 +2,8 @@ var DEFAULT_PAGE = "blog"
 var DAMN_FAST = 100;
 var nav_loaded = false;
 var templates_loaded = [];
+var width_offset = -30
+var left_offset = - (width_offset/2);
 
 // Load nav, and default page the first time you get this file
 if ( ! nav_loaded ) {
@@ -56,6 +58,8 @@ function load_page(path) {
 				$append_to.append(html).fadeIn(DAMN_FAST, function() {
 					if (history.pushState) {
 						history.pushState({}, "some title", path);
+						update_highlight(path);
+						set_new_highlight_snap_back_position($("#highlight"));
 					}
 			
 				});
@@ -64,6 +68,23 @@ function load_page(path) {
 	})
 }
 
+function update_highlight(url) {
+	// Set current URL	
+	console.log('Updating highlight for '+url)
+	var current_list_item = $('nav a[href$="'+url+'"]').parent();
+	$('nav li').not(current_list_item).removeClass('current_page_item');
+	current_list_item.addClass('current_page_item');
+}
+
+function set_new_highlight_snap_back_position($highlight) {
+	console.log('Setting snap back position');
+    $highlight
+        .width($(".current_page_item").width() + width_offset)
+        .css("left", $(".current_page_item a").position().left + left_offset)
+        .data("original_left", $highlight.position().left)
+        .data("original_width", $highlight.width());	
+}
+	
 // Setup navigation
 function setup_navigation() {
 	nav_name = 'nav'
@@ -77,21 +98,17 @@ function setup_navigation() {
 			var html = ich[nav_name](portfolio_data);
 			$('body').append(html);
 			
+			update_highlight(location.pathname);
+			
 			// Set up moving underline
 		    var $hovered_link
-			var width_offset = -30
-			var left_offset = - (width_offset/2);
 
 			var $nav_container = $("#nav_container > ul");
 			var $nav_links = $("#nav_container > ul > li a"); 
 		    $nav_container.append("<li id='highlight'></li>");
 		    var $highlight = $("#highlight");
 		
-		    $highlight
-		        .width($(".current_page_item").width() + width_offset)
-		        .css("left", $(".current_page_item a").position().left + left_offset)
-		        .data("original_left", $highlight.position().left)
-		        .data("original_width", $highlight.width());
+		    set_new_highlight_snap_back_position($highlight); 
 
 			// Slide underline when hovered, back when unhovered 	
 		    $nav_links.on('mouseenter', function(event) {
