@@ -1,28 +1,47 @@
 #!/usr/bin/env node 
-// If request is non-XHR, examine the URL, and build a (single) page to match it.
-// Eg, / followed by nothing = page border + home page index
-// Eg, / followed by sports followed by nothing = page border + sport page border + sport index
-// Eg, / followed by sports followed by nothing = page border + sport page border + sport index
-//
-// If request is XHR, provide the partial HTML requested (eg, from / to /sports/babe_ruth would mean sports border and babe ruth article), with some JS to update the URL
-//
-// All pages served with some client JS to detect if the appcache for the day has been loaded before, and to load it if not.
-//
-// 
-//
-// TODO: headers
-// Cache-Control header
-// Connection: close
-// Expires:
+// Goodbye Horses - Server
+// A server for single page apps
+// (c) Mike MacCana all rights reserved
 
 // Modules
 var http = require('http'), 
 	fs = require('fs'),
 	mime = require('mime'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	superagent = require('superagent');
 _.str = require('underscore.string');
+
 // Add underscore.string to underscore
 _.mixin(_.str.exports());
+
+request = superagent;
+
+var latest_tweet = ['','']
+var USER = 'mikemaccana';
+var URL = 'http://api.twitter.com/1/statuses/user_timeline.json';
+
+function check_twitter() {
+	console.log('Updating Twitter');
+	superagent
+	.get(URL)
+	.send({ 'screen_name': USER, 'count': '1' })
+	.end(function(response){		
+		if (response.ok) {
+			var tweetbody = response.body[0]
+		    latest_tweet = [tweetbody['text'], tweetbody['created_at']];
+		} else {
+			console.log('Oh no! error ' + response.text);
+		}
+	});
+};
+
+// Update the 'latest_tweet'
+function start_twitter_monitor(interval_mins) {
+	check_twitter();
+	setInterval(function() {
+		check_twitter();
+	}, interval_mins * 60 * 1000)
+};	
 
 app = {
 	PUBLIC: './public/',
@@ -39,7 +58,9 @@ app = {
 	    response.end('Not found');
 	},
 
-	// Normalize URLs. Lowercase, strip leading trailing slahes, handle indexing. 
+	// Normalize URLs. Lowercase, strip leading trailing slashes, handle indexing. 
+	// Since ALL page (ie, not asset) URLs in the app are dynamic, send them to the index page
+	// which will build the required content for the URL
 	cleanRequest: function (request) {
 		request.url = _.trim(request.url, '/').toLowerCase();
 		var top_level_pages = ['','work','art','contact']
@@ -61,6 +82,14 @@ app = {
 		return json_string
 	},
 	
+	add_tweets: function(string) {
+		nav_data = JSON.parse(string);
+		// Get most recent tweet]
+		nav_data['last_tweet'] = latest_tweet[0];
+		json_string = JSON.stringify(nav_data);
+		return json_string		
+	},
+	
 	// End response by serving filename
 	serveFile: function(request, response) {
 		var full_filename = app.PUBLIC+request.url;
@@ -77,6 +106,10 @@ app = {
 				// Add slugs to work data json
 				if ( ! (request.url.indexOf('work.json') === -1) ) {
 					data = this.add_slugs(data.toString());
+				}
+				
+				if ( ! (request.url.indexOf('nav.json') === -1) ) {
+					data = this.add_tweets(data.toString());
 				}
 				
 				//portfolio_data['year'] = new Date().getFullYear();
@@ -101,7 +134,7 @@ app = {
 		
 		// Patterns to match incoming URLs to 
 		routes = [
-			['templates|js|json|fonts|images|css|less|mustache|favicon.ico',app.serveFile],
+			['templates|js|json|fonts|images|css|less|mustache',app.serveFile],
 		]
 		
 		var found = false;
@@ -125,4 +158,4 @@ app = {
 _.bindAll(app);
 
 app.startServer("127.0.0.1", 8000);
-
+start_twitter_monitor(15); 
