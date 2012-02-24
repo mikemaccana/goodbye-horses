@@ -51,6 +51,16 @@ app = {
 		return request
 	},
 	
+	// Take a JSON string, open it as JSON, add slugs, return the string again
+	add_slugs: function(string) {
+		work_data = JSON.parse(string);
+		work_data['works'].forEach( function(item, index, array) {
+			work_data['works'][index]['slug_name'] = item.name.replace(/[\s-,']+/g, '').toLowerCase();
+		});
+		json_string = JSON.stringify(work_data);
+		return json_string
+	},
+	
 	// End response by serving filename
 	serveFile: function(request, response) {
 		var full_filename = app.PUBLIC+request.url;
@@ -65,23 +75,15 @@ app = {
 				response.writeHead(200, {'Content-Type': type});
 				
 				// Add slugs to work data json
-				/*if ( ! (request.url.indexOf('work') === -1) ) {
-					console.log('Adding info to work data');
-					work_data = JSON.parse(data);
-					work_data.works.forEach( function(work) {
-						work_data[work]['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase();
-					});
-					console.log(work_data)
-					data = work_data.toString(); 	
+				if ( ! (request.url.indexOf('work.json') === -1) ) {
+					data = this.add_slugs(data.toString());
 				}
 				
 				//portfolio_data['year'] = new Date().getFullYear();
-				*/
-				
 				return response.end(data);   
 			}
 			   
-		})
+		}.bind(this) )
 	}, 
 	
 	// Serve the TronCAT API

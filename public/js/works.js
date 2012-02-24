@@ -7,6 +7,7 @@ $(document).on('/work_loaded', function(event, works_template, work_data, templa
 	var sorted_work_template_location = '../mustache/sorted_work.mustache'
 	var tags = '#works li.tag';
 	$.get(sorted_work_template_location, function(sorted_work_template_string) {
+		
 		// Return a list of the works with the tag/sort_key mentioned
 		var sort_works = function(sort_key) {
 			var sorted_works = [];
@@ -27,31 +28,35 @@ $(document).on('/work_loaded', function(event, works_template, work_data, templa
 			sorted_works = {
 				works: sort_works(sort_key)
 			}
-			ich.addTemplate('sorted_work_template', sorted_work_template_string);	
+			
+			add_template_if_necessary('sorted_work_template', sorted_work_template_string)
+			
 			var sorted_portfolio = ich.sorted_work_template(sorted_works);
 			
 			$('#sorted_works').replaceWith(sorted_portfolio);
 			
 			// Sort the full works ul based on hidden sorted_works		
 			$('#works').quicksand( $('#sorted_works li.work') );
+			
+			// Mouseover animation for tags 					
+			$(document).on("mouseenter", tags, function() {
+				$(event.target).animate({ backgroundColor: "#222" }, 'slow');
+			}).on("mouseleave", tags, function() {
+				$(event.target).animate({ backgroundColor: "#777" }, 'slow');
+			});
+		
+			// Show dialog when images clicked
+			$('#works img').on('click', function(event){
+				ui.dialog('jQuery object', $('Just a <strong>string</strong> of <em>HTML</em>.')).closable().show();
+				event.preventDefault();
+			});		
 		});
 		
 	})
 	
 	
 		
-	// Mouseover animation for tags 					
-	$(document).on("mouseenter", tags, function() {
-		$(event.target).animate({ backgroundColor: "#222" }, 'slow');
-	}).on("mouseleave", tags, function() {
-		$(event.target).animate({ backgroundColor: "#777" }, 'slow');
-	});
-		
-	// Show dialog when images clicked
-	$('#works img').on('click', function(event){
-		ui.dialog('jQuery object', $('Just a <strong>string</strong> of <em>HTML</em>.')).closable().show();
-		event.preventDefault();
-	});							
+						
 });
 
 	
