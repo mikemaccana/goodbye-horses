@@ -63,6 +63,21 @@ app = {
 			} else {
 				type = mime.lookup(full_filename);
 				response.writeHead(200, {'Content-Type': type});
+				
+				// Add slugs to work data json
+				/*if ( ! (request.url.indexOf('work') === -1) ) {
+					console.log('Adding info to work data');
+					work_data = JSON.parse(data);
+					work_data.works.forEach( function(work) {
+						work_data[work]['slug_name'] = work.name.replace(/[\s-,']+/g, '').toLowerCase();
+					});
+					console.log(work_data)
+					data = work_data.toString(); 	
+				}
+				
+				//portfolio_data['year'] = new Date().getFullYear();
+				*/
+				
 				return response.end(data);   
 			}
 			   
@@ -72,6 +87,7 @@ app = {
 	// Serve the TronCAT API
 	serveAPI: function(request, response) {
 		console.log('WOOO SERVE API HERE');
+		
 		return app.notFound(response);
 	},
   

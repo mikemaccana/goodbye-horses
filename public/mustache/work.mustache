@@ -1,7 +1,7 @@
 <ul id="works">
 	{{# works}}
 		<li data-id="{{ slug_name }}" class="work">
-			<img src="/images/work/{{ thumbnail }}{{^thumbnail}}no_image.png{{/thumbnail}}" width="240" height="135"/>
+			<img src="/images/work/thumbs/{{ thumbnail }}{{^thumbnail}}no_image.png{{/thumbnail}}" width="240" height="135"/>
 			<h2>{{ name }} </h2>
 			<div class="year">{{ year }}</div>
 			<div class="clearfix"></div>
@@ -10,27 +10,14 @@
 				{{# tags}}
 					<li class="tag">{{ . }}</li>
 				{{/tags}}
+				<div class="clearfix"></div>
 			</ul>
 			{{#github}}<a href="http://www.github.com/mikemaccana/{{ github }}" class="github" target="_blank">On github &#0187;</a>{{/github}}
+			{{#link}}<a href="http://{{ link }}" class="link" target="_blank">Online &#0187;</a>{{/link}}
 		</li>
 	{{/works}}
 </ul>
 <div class="clearfix"></div>
 
 <ul id="sorted_works" class="hidden">
-	{{# works }}
-		<li data-id="{{ slug_name }}" class="work">
-		<img src="/images/work/{{ thumbnail }}{{^thumbnail}}no_image.png{{/thumbnail}}" width="240" height="135"/>
-		<h2>{{ name }}</h2>
-		<div class="year">{{ year }}</div>
-		<div class="clearfix"></div>
-		<p class="description">{{ description }}</a>
-			<ul>
-				{{# tags}}
-					<li class="tag">{{ . }}</li>
-				{{/tags}}
-			</ul>				
-		</li>
-					
-	{{/works}}
 </ul>

@@ -1,0 +1,16 @@
+<ul id="sorted_works" class="hidden">
+	{{# works }}
+		<li data-id="{{ slug_name }}" class="work">
+		<img src="/images/work/thumbs/{{ thumbnail }}{{^thumbnail}}no_image.png{{/thumbnail}}" width="240" height="135"/>
+		<h2>{{ name }}</h2>
+		<div class="year">{{ year }}</div>
+		<div class="clearfix"></div>
+		<p class="description">{{ description }}</a>
+			<ul>
+				{{#tags}}
+					<li class="tag">{{ . }}</li>
+				{{/tags}}
+			</ul>				
+		</li>
+	{{/works}}
+</ul>

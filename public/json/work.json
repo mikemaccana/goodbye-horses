@@ -3,7 +3,7 @@
 		{
 			"name": "I'm Everyone",
 			"client":"self",
-			"description":"A realtime, threaded, anonymous communication platform",
+			"description":"A realtime, threaded, anonymous communication platform. ",
 			"tags": ["artwork","js","realtime","python","tornado","founder"],
 			"year": 2010,
 			"thumbnail": "im_everyone.png"
@@ -39,7 +39,7 @@
 		{
 			"name":"Simple OAuth2",
 			"client":"self",
-			"description": "A standalone, simple Python module that lets users authorize apps to use their Google, Twitter, Facebook etc. data",
+			"description": "A standalone, simple Python module that lets users authorize apps to use their Google, Twitter and Facebook data",
 			"tags": ["google apis"],
 			"year": 2011,
 			"github":"simple_oauth2",
@@ -136,7 +136,7 @@
 		{
 			"name":"TickTick Boom",	
 			"client":"self",
-			"description": "An unoffical port ofTwitter for Mac to Chrome. Features include proactive notification of tweets, a direct message count in the chrome toolbar, and a recreation of the Twitter OS X multi-panel UI.",
+			"description": "An unofficial port of Twitter for Mac to Chrome. Features include proactive notification of tweets, a direct message count in the chrome toolbar, and a recreation of the Twitter OS X multi-panel UI.",
 			"more":"It also uses recent technologies including Chrome messaging, webkit filters, and Coffeescript behind the scenes. It's unfinished, but accomplished it's job of teaching the author how to make very large Chrome extensions.",
 			"tags": ["twitter api","js","chrome extension"],
 			"year": 2011,

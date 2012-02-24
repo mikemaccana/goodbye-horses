@@ -62,7 +62,7 @@ function load_page(path) {
 					set_new_highlight_snap_back_position($("#highlight"));
 					console.log('triggering event:'+path+'_loaded. ')
 					// Trigger any events that need to happen after this specific page is loaded
-					$(document).trigger(path+'_loaded', [template_path, template_data]);
+					$(document).trigger(path+'_loaded', [template_path, template_data, template_data_string]);
 				});
 			})
 		});	
