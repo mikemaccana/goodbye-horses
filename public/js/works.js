@@ -37,6 +37,7 @@ $(document).on('/work_loaded', function(event, works_template, work_data, templa
 			
 			// Sort the full works ul based on hidden sorted_works		
 			$('#works').quicksand( $('#sorted_works li.work') );
+			$.scrollTo('#works', 800, {} );
 			
 			// Mouseover animation for tags 					
 			$(document).on("mouseenter", tags, function() {
