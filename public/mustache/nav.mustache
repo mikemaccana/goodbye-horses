@@ -14,7 +14,7 @@
 		<ul>
 			<li><a href="/">Writing</a></li>
 			<li><a href="/work">Work</a></li>
-			<li><a href="/art">Art</a></li>
+			<!-- ><li><a href="/art">Art</a></li> -->
 			<li><a href="/contact">Contact</a></li>
 			<div class="clearfix"></div>
 		</ul>
@@ -27,5 +27,7 @@
 
 <footer>
 	<p>&copy; {{ name }} {{ year }}</p>
-	<p id="footer_message">{{ footer }}</p>
+	{{#footer}}
+		<p>{{ . }}</p>
+	{{/footer}}	
 </footer>
