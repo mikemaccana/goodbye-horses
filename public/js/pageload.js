@@ -56,12 +56,16 @@ function load_page(path) {
 			$append_to.fadeOut("fast", function(){
 				$append_to.empty();
 				$append_to.append(html).fadeIn(DAMN_FAST, function() {
+					// Non-pushState browsers still use loadpage(), but only to load the rest of the home page after nav has loaded
+					// Whereas pushState browsers will use loadpage() to load every page
 					if (history.pushState) {
 						history.pushState({}, "some title", path);
-						update_highlight(path);
-						set_new_highlight_snap_back_position($("#highlight"));
-					}
-			
+					}	
+					update_highlight(path);
+					set_new_highlight_snap_back_position($("#highlight"));
+					console.log('triggering event:'+path+'_loaded. ')
+					// Trigger any events that need to happen after this specific page is loaded
+					$(document).trigger(path+'_loaded', [template_path, template_data]);
 				});
 			})
 		});	
