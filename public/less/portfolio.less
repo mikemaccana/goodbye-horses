@@ -164,9 +164,14 @@ li.work {
 	position: relative;
 }
 
-li.work > h2 {
+.work h2 {
 	max-width: 80%;
 	float: left;
+	font-size: @secondary_base_font_size * @golden_ratio;
+}
+
+.work img {
+	border: solid 1px @midgrey;
 }
 
 .year {
@@ -179,7 +184,7 @@ p.description {
 	padding: 10px 0;
 }
 
-li.tag {
+.tag {
 	font-size: @primary_base_font_size / @golden_ratio;
 	text-transform: uppercase;
 	background-color: #777;
@@ -210,7 +215,7 @@ footer {
 	text-align: center;
 }
 
-#footer_message {
+footer p {
 	font-size: @secondary_base_font_size;
 	padding-top: 10px;
 }

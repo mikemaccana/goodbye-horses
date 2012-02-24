@@ -21,9 +21,9 @@ function add_template_if_necessary(template_path, template_data_string) {
 	} 
 }
 	
-// Load template and template data for the path specified
+// Load template and template data for the path specified, include it on the current document
 function load_page(path) {
-	
+	// Since '/' is a somewhat ugly name for a template, we use DEFAULT_PAGE instead
 	if ( path === "/" ) {
 		var template_path = DEFAULT_PAGE
 		var $append_to = $('body')
@@ -40,10 +40,10 @@ function load_page(path) {
 		add_template_if_necessary(template_path, template_data_string)
 		
 		// Fetch and fill in the template
-		$.getJSON(template_data_location, function(portfolio_data) {
+		$.getJSON(template_data_location, function(template_data) {
 	
 			// Fill in our template and add to document					
-			var html = ich[template_path](portfolio_data);
+			var html = ich[template_path](template_data);
 			console.log('got html')
 			console.log(html)
 			
