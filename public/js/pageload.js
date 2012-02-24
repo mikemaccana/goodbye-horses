@@ -44,13 +44,10 @@ function load_page(path) {
 	
 			// Fill in our template and add to document					
 			var html = ich[template_path](template_data);
-			console.log('got html')
-			console.log(html)
 			
 			// Find append point.
 			// TODO: append point should be based on amount of slashes in URL
 			var $append_to = $('.maincontent')	
-			
 			
 			// Append content
 			$append_to.fadeOut("fast", function(){

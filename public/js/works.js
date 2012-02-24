@@ -2,10 +2,7 @@
 // Event handler. Take works_template name and work_data JSON
 
 $(document).on('/work_loaded', function(event, works_template, work_data) {		
-	console.log('Recieved event!')
-	console.log(event)
-	console.log(works_template)
-	console.log(work_data)
+	console.log('Adding work reshuffling')
 	
 	// Return a list of the works with the tag/sort_key mentioned
 	var sort_works = function(sort_key) {
