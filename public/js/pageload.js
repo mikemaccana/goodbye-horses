@@ -72,7 +72,8 @@ function load_page(path) {
 function update_highlight(url) {
 	// Set current URL	
 	console.log('Updating highlight for '+url)
-	var current_list_item = $('nav a[href$="'+url+'"]').parent();
+	top_level_url = url.split('/').splice(0,2).join('/') // Just /foo from /foo/bar/baz
+	var current_list_item = $('nav a[href$="'+top_level_url+'"]').parent();
 	$('nav li').not(current_list_item).removeClass('current_page_item');
 	current_list_item.addClass('current_page_item');
 }
