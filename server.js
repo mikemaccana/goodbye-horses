@@ -68,7 +68,7 @@ app = {
 		request.url = _.trim(request.url, '/').toLowerCase();
 		if ( ! (this.pages.indexOf(request.url) === -1) ) {
 			console.log('found in top level')
-			request.url = 'templates/content.html'		
+			request.url = 'html/content.html'		
 		}
 		console.log('Cleaned request URL is: "'+request.url+'"')
 		return request
@@ -137,7 +137,7 @@ app = {
 		
 		// Patterns to match incoming URLs to 
 		routes = [
-			['templates|js|json|fonts|images|css|less|mustache',app.serveFile],
+			['html|js|json|fonts|images|css|less|mustache',app.serveFile],
 		]
 		
 		var found = false;
