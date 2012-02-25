@@ -2,5 +2,5 @@
 	"name": "Mike MacCana",
 	"slogan": "I like making things.",
 	"last_tweet": "Last Tweet goes here",
-	"footer": ["Built with NodeJS, less, mustache, JQuery, quicksilver and a custom single page web framework I made myself.", "May all your dachshunds be long."]
+	"footer": ["Built with NodeJS, less, mustache, JQuery, quicksilver and a custom web framework.", "May all your dachshunds be long."]
 }

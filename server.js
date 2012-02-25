@@ -45,6 +45,9 @@ function start_twitter_monitor(interval_mins) {
 
 app = {
 	PUBLIC: './public/',
+	
+	// All content pages (ie, not resources)
+	pages: ['','work','art','contact','work/im_everyone'],
   
 	// Start server on port
 	startServer: function(address, port) {
@@ -63,10 +66,9 @@ app = {
 	// which will build the required content for the URL
 	cleanRequest: function (request) {
 		request.url = _.trim(request.url, '/').toLowerCase();
-		var top_level_pages = ['','work','art','contact']
-		if ( ! (top_level_pages.indexOf(request.url) === -1) ) {
+		if ( ! (this.pages.indexOf(request.url) === -1) ) {
 			console.log('found in top level')
-			request.url = 'templates/index.html'		
+			request.url = 'templates/content.html'		
 		}
 		console.log('Cleaned request URL is: "'+request.url+'"')
 		return request
@@ -82,10 +84,12 @@ app = {
 		return json_string
 	},
 	
+	// Add tweets, current year, other stuff to nav
 	add_tweets: function(string) {
 		nav_data = JSON.parse(string);
 		// Get most recent tweet]
 		nav_data['last_tweet'] = latest_tweet[0];
+		nav_data['year'] = new Date().getFullYear();
 		json_string = JSON.stringify(nav_data);
 		return json_string		
 	},
@@ -112,7 +116,6 @@ app = {
 					data = this.add_tweets(data.toString());
 				}
 				
-				//portfolio_data['year'] = new Date().getFullYear();
 				return response.end(data);   
 			}
 			   

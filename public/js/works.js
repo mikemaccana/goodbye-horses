@@ -19,7 +19,14 @@ $(document).on('/work_loaded', function(event, works_template, work_data, templa
 			return sorted_works					
 		};
 		
-		
+		// Mouseover animation for tags		
+		$(document).on("mouseenter", tags, function(event) {
+			$(event.target).animate({ backgroundColor: "#222" }, 'slow');
+		}).on("mouseleave", tags, function(event) {
+			$(event.target).animate({ backgroundColor: "#777" }, 'slow');
+		});	
+			
+		// Reshuffle the works when the tags are clicked
 		$(document).on('click', tags, function(event){	
 			
 			console.log('Tag clicked')
@@ -37,20 +44,10 @@ $(document).on('/work_loaded', function(event, works_template, work_data, templa
 			
 			// Sort the full works ul based on hidden sorted_works		
 			$('#works').quicksand( $('#sorted_works li.work') );
-			$.scrollTo('#works', 800, {} );
+			$.scrollTo('#works', 200, {} );
 			
-			// Mouseover animation for tags 					
-			$(document).on("mouseenter", tags, function() {
-				$(event.target).animate({ backgroundColor: "#222" }, 'slow');
-			}).on("mouseleave", tags, function() {
-				$(event.target).animate({ backgroundColor: "#777" }, 'slow');
-			});
-		
-			// Show dialog when images clicked
-			$('#works img').on('click', function(event){
-				ui.dialog('jQuery object', $('Just a <strong>string</strong> of <em>HTML</em>.')).closable().show();
-				event.preventDefault();
-			});		
+
+			
 		});
 		
 	})
