@@ -121,13 +121,6 @@ app = {
 			   
 		}.bind(this) )
 	}, 
-	
-	// Serve the TronCAT API
-	serveAPI: function(request, response) {
-		console.log('WOOO SERVE API HERE');
-		
-		return app.notFound(response);
-	},
   
 	// Handle incoming requests
 	incoming: function (request, response) {
