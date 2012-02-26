@@ -1,7 +1,7 @@
 // Sort the data, and create a new template for the page based on the sorted data
 // Event handler. Take works_template name and work_data JSON
 
-$(document).on('/work_loaded', function(event, works_template, work_data, template_data_string) {		
+$(document).on('/work_loaded', function(event, works_template, work_data) {		
 	console.log('Adding work reshuffling')
 	
 	var sorted_work_template_location = '../mustache/sorted_work.mustache'

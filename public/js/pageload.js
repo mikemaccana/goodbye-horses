@@ -12,11 +12,11 @@ if ( ! nav_loaded ) {
 }
 
 // Load a template if it hasn't been loaded before
-function add_template_if_necessary(template_path, template_data_string) {
+function add_template_if_necessary(template_path, template_string) {
 	if ( templates_loaded.indexOf(template_path) === -1  ) {
 		console.log('Adding new template :'+template_path);
 		// Add the template to ICHasMustache's list of templates (name is the path)
-		ich.addTemplate(template_path, template_data_string);
+		ich.addTemplate(template_path, template_string);
 		templates_loaded.push(template_path);
 	} 
 }
@@ -35,12 +35,12 @@ function load_page(path) {
 	
 	var template_location = '../mustache/'+template_path+'.mustache'
 	var template_data_location = '../json/'+template_path+'.json'
-	$.get(template_location, function(template_data_string) {
+	$.get(template_location, function(template_string) {
 		
-		add_template_if_necessary(template_path, template_data_string)
+		add_template_if_necessary(template_path, template_string)
 		
 		// Fetch and fill in the template
-		$.getJSON(template_data_location, function(template_data) {
+		$.get(template_data_location, function(template_data) {
 	
 			// Fill in our template and add to document					
 			var html = ich[template_path](template_data);
@@ -62,7 +62,7 @@ function load_page(path) {
 					set_new_highlight_snap_back_position($("#highlight"));
 					console.log('triggering event:'+path+'_loaded. ')
 					// Trigger any events that need to happen after this specific page is loaded
-					$(document).trigger(path+'_loaded', [template_path, template_data, template_data_string]);
+					$(document).trigger(path+'_loaded', [template_path, template_data]);
 				});
 			})
 		});	
@@ -90,12 +90,12 @@ function set_new_highlight_snap_back_position($highlight) {
 // Setup navigation
 function setup_navigation() {
 	nav_name = 'nav'
-	$.get('/mustache/'+nav_name+'.mustache', function(template_data_string) {
+	$.get('/mustache/'+nav_name+'.mustache', function(template_string) {
 		
 		$.getJSON('/json/'+nav_name+'.json', function(portfolio_data) {
 			
 			// Fill in our template and add to document		
-			add_template_if_necessary(nav_name, template_data_string)	
+			add_template_if_necessary(nav_name, template_string)	
 					
 			var html = ich[nav_name](portfolio_data);
 			$('body').append(html);
