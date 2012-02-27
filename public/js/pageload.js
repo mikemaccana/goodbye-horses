@@ -8,7 +8,7 @@ var left_offset = - (width_offset/2);
 // Load nav, and default page the first time you get this file
 if ( ! nav_loaded ) {
 	console.log('Setting up nav for the first time');
-	setup_navigation();			
+	load_page(location.pathname);
 }
 
 // Load a template if it hasn't been loaded before
@@ -24,32 +24,40 @@ function add_template_if_necessary(template_path, template_string) {
 	
 // Load template and template data for the path specified, include it on the current document
 function load_page(path) {
-	// Since '/' is a somewhat ugly name for a template, we use DEFAULT_PAGE instead
-	if ( path === "/" ) {
-		var template_path = DEFAULT_PAGE
-		var $append_to = $('body')
-	} else {
-		var template_path = path
-		
-	}
-	console.log('real path is: '+path)
-	console.log('template path is: '+template_path)
 	
-	var template_location = '../mustache/'+template_path+'.mustache'
-	var template_data_location = '../json/'+template_path+'.json'
+	var template_files = get_required_template_files(path)
+	var template_files_url_parts = []
+	template_files.forEach( function(template_file) {
+		template_files_url_parts.push(encodeURIComponent(template_file))
+	})
+	template_files_url = '/templates?' + template_files_url_parts.join('&')
+	$.get( template_files_url, function(data) {
+		console.log('yaaay')
+	})
+	
+	/*
+	var template_file = template_files.splice(1)
+	
+	template_files.forEach( function(template_file) {
+		var template_location = '../mustache/'+template_file+'.mustache'
+		var template_data_location = '../json/'+template_file+'.json'
+		$.get(template_file
+	}
+	
+	// Find append point.
+	// TODO: append point should be based on amount of slashes in URL
+	var $append_to = $('.maincontent')
+	
+	
 	$.get(template_location, function(template_string) {
 		
-		add_template_if_necessary(template_path, template_string)
+		add_template_if_necessary(template_file, template_string)
 		
 		// Fetch and fill in the template
 		$.get(template_data_location, function(template_data) {
 	
 			// Fill in our template and add to document					
-			var html = ich[template_path](template_data);
-			
-			// Find append point.
-			// TODO: append point should be based on amount of slashes in URL
-			var $append_to = $('.maincontent')	
+			var html = ich[template_file](template_data);
 			
 			// Append content
 			$append_to.fadeOut("fast", function(){
@@ -64,11 +72,46 @@ function load_page(path) {
 					set_new_highlight_snap_back_position($("#highlight"));
 					console.log('triggering event:'+path+'_loaded. ')
 					// Trigger any events that need to happen after this specific page is loaded
-					$(document).trigger(path+'_loaded', [template_path, template_data]);
+					$(document).trigger(path+'_loaded', [template_file, template_data]);
 				});
 			})
 		});	
-	})
+	}) */
+}
+
+// Given a URL, return a list of templates to load
+function get_required_template_files(path) {
+	// Strip leading slashs
+	path_chunks = path.split('/')
+	template_files = []
+
+	function get_template_files(path_chunks, template_files, index) {
+		// Add template files until all path_chunks are processed
+
+		if ( index > 5 ) {
+			return template_files
+		}
+		
+		index += 1
+		current_chunk = path_chunks[index]
+		var path_to_current_template = path_chunks.slice(0,index).join('/')
+				
+		if ( index === path_chunks.length ) {
+			// We are on the last path chunk - show default for whatever this is then return 
+			if ( path_to_current_template === "/" ) {
+				template_files.push('/default')
+			} else {
+				template_files.push(path_to_current_template+'/default')
+			}
+			return template_files
+		} else {
+			// This isn't the last path chunk. Find the frame for whatever this is.
+			template_files.push(path_to_current_template+'/frame')			
+			return get_template_files(path_chunks, template_files, index)
+		}
+	}
+	
+	return get_template_files(path_chunks, template_files, 0)
 }
 
 function update_highlight(url) {
@@ -102,47 +145,6 @@ function setup_navigation() {
 			var html = ich[nav_name](portfolio_data);
 			$('body').append(html);
 			
-			update_highlight(location.pathname);
-			
-			// Set up moving underline
-		    var $hovered_link
-
-			var $nav_container = $("nav ul");
-			var $nav_links = $("nav a"); 
-		    $nav_container.append("<li id='highlight'></li>");
-		    var $highlight = $("#highlight");
-		
-		    set_new_highlight_snap_back_position($highlight); 
-
-			// Slide underline when hovered, back when unhovered 	
-		    $nav_links.on('mouseenter', function(event) {
-		        $hovered_link = $(event.target);
-		        var new_left_position = $hovered_link.position().left + left_offset;
-		        var new_width = $hovered_link.parent().width() + width_offset;
-		        $highlight.stop().animate({
-		            left: new_left_position,
-		            width: new_width
-		        },DAMN_FAST)
-			});
-			$nav_links.on('mouseleave', function(event) {
-		        $highlight.stop().animate({
-		            left: $highlight.data("original_left"),
-		            width: $highlight.data("original_width")
-		        },DAMN_FAST);
-		    });
-		
-			$nav_links.on('click', function(event) {
-				if (history.pushState) {
-					console.log('updating URL');
-					new_location = $(event.target).attr('href');
-					load_page(new_location);
-					event.preventDefault();
-				} else {
-					console.log('This browser is ghetto. Full reload for you.')
-				}
-		
-			});
-	
 			nav_loaded = true;
 			
 			// Load rest of the page

@@ -8,7 +8,9 @@ var http = require('http'),
 	fs = require('fs'),
 	mime = require('mime'),
 	_ = require('underscore'),
-	superagent = require('superagent');
+	superagent = require('superagent'),
+	url  = require('url'),
+	async = require('async');
 _.str = require('underscore.string');
 
 // Add underscore.string to underscore
@@ -94,15 +96,52 @@ app = {
 		return json_string		
 	},
 	
+	// Return a JSON mapping of template names to their contents
+	// This is so clients can fetch all templates required for a URL at once
+	serveTemplates: function(request, response) {
+		var response_json = {};
+		var url_parts = url.parse(request.url, true);
+		var templates = Object.keys(url_parts.query);
+		console.log('client has asked for templates: ')
+		console.log(templates)
+		// Open all templates with first function, run second function when all are complete
+		
+		var open_template_and_add_it_to_response = function(template, callback) {
+			var full_filename = app.PUBLIC+'mustache'+template+'.mustache'
+			console.log('opening :'+full_filename)
+			fs.readFile(full_filename, function(error, data) {
+				if ( error) {	
+					console.log('oh no template missing')	
+					return callback(error)
+				} else {
+					response_json[template] = data.toString()
+					console.log('woo '+template+' found')
+					return callback()
+				}		
+			})
+		}
+		
+		async.forEach(templates, open_template_and_add_it_to_response, function(error) {
+			if ( error) {	
+				console.log('oh no errors!')
+				return app.notFound(response);
+			} else {
+				console.log('all templates found')
+				response.writeHead(200, {'Content-Type': 'application/json'});
+				
+				return response.end(JSON.stringify(response_json)); 
+			}	
+		});
+		
+	},
+	
 	// End response by serving filename
 	serveFile: function(request, response) {
 		var full_filename = app.PUBLIC+request.url;
 		console.log('Opening: "'+full_filename+'"');		
 		fs.readFile(full_filename, function(error, data) {
 			if ( error) {				
-				return app.notFound(response);
-			    response.writeHead(404, {});
-			    response.end('Not found');				
+				return app.notFound(response);		
 			} else {
 				type = mime.lookup(full_filename);
 				response.writeHead(200, {'Content-Type': type});
@@ -131,6 +170,7 @@ app = {
 		// Patterns to match incoming URLs to 
 		routes = [
 			['html|js|json|fonts|images|css|less|mustache',app.serveFile],
+			['templates',app.serveTemplates],
 		]
 		
 		var found = false;
