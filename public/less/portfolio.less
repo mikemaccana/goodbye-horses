@@ -255,6 +255,31 @@ address aside {
 	margin-bottom: 10px;
 }
 
+/* Dialog */
+
+#dialog {
+	position: fixed;
+	left: 50%;
+	top: 150px;
+	max-width: 600px;
+	min-width: 250px;
+	border: 1px solid #EEE;
+	background: white;
+	z-index: 1000;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 1;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .75);
+	transition: opacity 300ms;
+	z-index: 500;
+}
+
 /* Hacks */
 
 .clearfix {

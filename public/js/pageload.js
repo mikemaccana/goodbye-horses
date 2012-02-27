@@ -21,6 +21,7 @@ function add_template_if_necessary(template_path, template_string) {
 	} 
 }
 	
+	
 // Load template and template data for the path specified, include it on the current document
 function load_page(path) {
 	// Since '/' is a somewhat ugly name for a template, we use DEFAULT_PAGE instead
@@ -29,6 +30,7 @@ function load_page(path) {
 		var $append_to = $('body')
 	} else {
 		var template_path = path
+		
 	}
 	console.log('real path is: '+path)
 	console.log('template path is: '+template_path)
@@ -72,8 +74,8 @@ function load_page(path) {
 function update_highlight(url) {
 	// Set current URL	
 	console.log('Updating highlight for '+url)
-	top_level_url = url.split('/').splice(0,2).join('/') // Just /foo from /foo/bar/baz
-	var current_list_item = $('nav a[href$="'+top_level_url+'"]').parent();
+	top_level_url = url.split('/').splice(1)[0] // Just 'foo' from '/foo/bar/baz'
+	var current_list_item = $('nav a[href$="/'+top_level_url+'"]').parent();
 	$('nav li').not(current_list_item).removeClass('current_page_item');
 	current_list_item.addClass('current_page_item');
 }
