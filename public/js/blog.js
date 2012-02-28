@@ -1,4 +1,4 @@
-$(document).on('/_loaded', function(event, works_template, work_data) {		
+$(document).on('blog_loaded', function(event, works_template, work_data) {		
 	console.log('Adding blog tooltips etc');
 	
 	var footnote_offset = 10;
