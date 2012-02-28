@@ -4,7 +4,9 @@
 			<h2>{{ title }}</h2>
 			<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
 			<div class="clearfix">
-			<p>{{ body }}</p>
+			{{{ body }}}
+			<footer>{{{ footer }}}
+			</footer>
 		</article>
 	{{/articles}}
 </section>
