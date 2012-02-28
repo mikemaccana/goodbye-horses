@@ -88,6 +88,17 @@ function set_new_highlight_snap_back_position($highlight) {
         .data("original_left", $highlight.position().left)
         .data("original_width", $highlight.width());	
 }
+
+function change_page(event) {
+	if (history.pushState) {
+		console.log('updating URL');
+		new_location = $(event.target).attr('href');
+		load_page(new_location);
+		event.preventDefault();
+	} else {
+		console.log('This browser is ghetto. Full reload for you.')
+	}
+}
 	
 // Setup navigation
 function setup_navigation() {
@@ -131,17 +142,7 @@ function setup_navigation() {
 		        },DAMN_FAST);
 		    });
 		
-			$nav_links.on('click', function(event) {
-				if (history.pushState) {
-					console.log('updating URL');
-					new_location = $(event.target).attr('href');
-					load_page(new_location);
-					event.preventDefault();
-				} else {
-					console.log('This browser is ghetto. Full reload for you.')
-				}
-		
-			});
+			$nav_links.on('click', function(event) { change_page(event) } );
 	
 			nav_loaded = true;
 			
