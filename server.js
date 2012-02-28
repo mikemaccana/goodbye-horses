@@ -99,7 +99,7 @@ app = {
 	// Return a JSON mapping of template names to their contents
 	// This is so clients can fetch all templates required for a URL at once
 	serveTemplates: function(request, response) {
-		var response_json = {};
+		var response_json = [];
 		var url_parts = url.parse(request.url, true);
 		var templates = Object.keys(url_parts.query);
 		console.log('client has asked for templates: ')
@@ -114,7 +114,7 @@ app = {
 					console.log('oh no template missing')	
 					return callback(error)
 				} else {
-					response_json[template] = data.toString()
+					response_json.push[template, data.toString()]
 					console.log('woo '+template+' found')
 					return callback()
 				}		

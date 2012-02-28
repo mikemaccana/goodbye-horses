@@ -31,8 +31,12 @@ function load_page(path) {
 		template_files_url_parts.push(encodeURIComponent(template_file))
 	})
 	template_files_url = '/templates?' + template_files_url_parts.join('&')
-	$.get( template_files_url, function(data) {
+	$.get( template_files_url, function(templates_and_their_data_json) {
 		console.log('yaaay')
+		templates_and_their_data = JSON.parse(templates_and_their_data_json)
+		templates_and_their_data.forEach(template_and_data) {
+			
+		}
 	})
 	
 	/*
