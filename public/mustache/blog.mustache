@@ -4,7 +4,21 @@
 			<h2>{{ title }}</h2>
 			<time datetime="{{ publication_date }}" pubdate>{{ publication_date }}</time>
 			<div class="clearfix"></div>
-				{{{ body }}}
+				{{#body}}
+					{{#text}}
+						<p>{{{.}}}</p>
+					{{/text}}
+					{{#quote}}
+						<q>{{{.}}}</q>
+					{{/quote}}					
+					{{#image}}
+						<figure><img src="{{src}}"><figcaption>{{caption}}</figcaption></figure>
+					{{/image}}
+					{{#footnote}}
+						<aside class='footnote'><a name='{{name}}'>&dagger; {{text}}</a></aside>
+					{{/footnote}}
+					
+				{{/body}}
 			<footer>
 				{{{ footer }}}
 			</footer>
