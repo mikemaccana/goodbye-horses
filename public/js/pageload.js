@@ -132,21 +132,24 @@ function setup_navigation() {
 		    set_new_highlight_snap_back_position($highlight); 
 
 			// Slide underline when hovered, back when unhovered 	
-		    $nav_links.on('mouseenter', function(event) {
-		        $hovered_link = $(event.target);
-		        var new_left_position = $hovered_link.position().left + left_offset;
-		        var new_width = $hovered_link.parent().width() + width_offset;
-		        $highlight.stop().animate({
-		            left: new_left_position,
-		            width: new_width
-		        },DAMN_FAST)
-			});
-			$nav_links.on('mouseleave', function(event) {
-		        $highlight.stop().animate({
-		            left: $highlight.data("original_left"),
-		            width: $highlight.data("original_width")
-		        },DAMN_FAST);
-		    });
+			// This displays oddly on IE9
+			if ( navigator.userAgent.indexOf('MSIE') === -1 ) {  
+			    $nav_links.on('mouseenter', function(event) {
+			        $hovered_link = $(event.target);
+			        var new_left_position = $hovered_link.position().left + left_offset;
+			        var new_width = $hovered_link.parent().width() + width_offset;
+			        $highlight.stop().animate({
+			            left: new_left_position,
+			            width: new_width
+			        },DAMN_FAST)
+				});
+				$nav_links.on('mouseleave', function(event) {
+			        $highlight.stop().animate({
+			            left: $highlight.data("original_left"),
+			            width: $highlight.data("original_width")
+			        },DAMN_FAST);
+			    });
+			}
 		
 			$nav_links.on('click', function(event) { change_page(event) } );
 	
