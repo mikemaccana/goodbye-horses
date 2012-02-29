@@ -127,8 +127,9 @@ function setup_navigation() {
 			var html = ich[nav_name](portfolio_data);
 			$('body').append(html);
 			
+			// IE9 screws up moving the highlight
 			if ( ! decent_browser ) {
-				$('nav #highlight').hide();
+				$('#highlight').remove();
 			}
 			
 			update_highlight(location.pathname);
