@@ -127,6 +127,10 @@ function setup_navigation() {
 			var html = ich[nav_name](portfolio_data);
 			$('body').append(html);
 			
+			if ( ! decent_browser ) {
+				$('nav #highlight').hide();
+			}
+			
 			update_highlight(location.pathname);
 					
 			// Set up moving underline
