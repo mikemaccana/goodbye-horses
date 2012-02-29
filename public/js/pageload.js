@@ -158,7 +158,13 @@ function setup_navigation() {
 	})		
 }
 
-
+// Handle back button when used after a pushstate
+onpopstate = function(event) {
+	if ( event.state ) {
+		debuglog('popping a previously pushed state:')
+		load_page(location.pathname)
+	}
+}
 	
 
 
