@@ -2,7 +2,7 @@
 // Event handler. Take works_template name and work_data JSON
 
 $(document).on('/work_loaded', function(event, works_template, work_data) {		
-	console.log('Adding work reshuffling')
+	debuglog('Adding work reshuffling')
 	
 	var sorted_work_template_location = '../mustache/sorted_work.mustache'
 	var tags = '#works li.tag';
@@ -29,7 +29,7 @@ $(document).on('/work_loaded', function(event, works_template, work_data) {
 		// Reshuffle the works when the tags are clicked
 		$(document).on('click', tags, function(event){	
 			
-			console.log('Tag clicked')
+			debuglog('Tag clicked')
 			var sort_key = $(event.target).text();
 				
 			sorted_works = {

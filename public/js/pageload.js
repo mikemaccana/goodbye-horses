@@ -4,17 +4,23 @@ var nav_loaded = false;
 var templates_loaded = [];
 var width_offset = -30
 var left_offset = - (width_offset/2);
-
+var debug = false;
 // Load nav, and default page the first time you get this file
 if ( ! nav_loaded ) {
-	console.log('Setting up nav for the first time');
+	debuglog('Setting up nav for the first time');
 	setup_navigation();			
+}
+
+function debuglog(text) {
+	if ( debug ) {
+		console.log(text)
+	}
 }
 
 // Load a template if it hasn't been loaded before
 function add_template_if_necessary(template_path, template_string) {
 	if ( templates_loaded.indexOf(template_path) === -1  ) {
-		console.log('Adding new template :'+template_path);
+		debuglog('Adding new template :'+template_path);
 		// Add the template to ICHasMustache's list of templates (name is the path)
 		ich.addTemplate(template_path, template_string);
 		templates_loaded.push(template_path);
@@ -32,8 +38,8 @@ function load_page(path) {
 		var template_path = path
 		
 	}
-	console.log('real path is: '+path)
-	console.log('template path is: '+template_path)
+	debuglog('real path is: '+path)
+	debuglog('template path is: '+template_path)
 	
 	var template_location = '../mustache/'+template_path+'.mustache'
 	var template_data_location = '../json/'+template_path+'.json'
@@ -62,7 +68,7 @@ function load_page(path) {
 					}	
 					update_highlight(path);
 					set_new_highlight_snap_back_position($("#highlight"));
-					console.log('triggering event:'+path+'_loaded. ')
+					debuglog('triggering event:'+path+'_loaded. ')
 					// Trigger any events that need to happen after this specific page is loaded
 					$(document).trigger(template_path+'_loaded', [template_path, template_data]);
 				});
@@ -73,7 +79,7 @@ function load_page(path) {
 
 function update_highlight(url) {
 	// Set current URL	
-	console.log('Updating highlight for '+url)
+	debuglog('Updating highlight for '+url)
 	top_level_url = url.split('/').splice(1)[0] // Just 'foo' from '/foo/bar/baz'
 	var current_list_item = $('nav a[href$="/'+top_level_url+'"]').parent();
 	$('nav li').not(current_list_item).removeClass('current_page_item');
@@ -81,7 +87,7 @@ function update_highlight(url) {
 }
 
 function set_new_highlight_snap_back_position($highlight) {
-	console.log('Setting snap back position');
+	debuglog('Setting snap back position');
     $highlight
         .width($(".current_page_item").width() + width_offset)
         .css("left", $(".current_page_item a").position().left + left_offset)
@@ -91,12 +97,12 @@ function set_new_highlight_snap_back_position($highlight) {
 
 function change_page(event) {
 	if (history.pushState) {
-		console.log('updating URL');
+		debuglog('updating URL');
 		new_location = $(event.target).attr('href');
 		load_page(new_location);
 		event.preventDefault();
 	} else {
-		console.log('This browser is ghetto. Full reload for you.')
+		debuglog('This browser is ghetto. Full reload for you.')
 	}
 }
 	
