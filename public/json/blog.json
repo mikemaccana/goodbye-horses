@@ -1,9 +1,9 @@
 {
-	"bio": "Hello there. I'm Mike MacCana, an engineer, designer, writer, and speaker, living and working in London.",
+	"bio": "Hello there. I'm Mike MacCana, an engineer, designer, writer, and speaker in London.",
 	"articles": [
 		{
 			"title":"Content creation apps finally get out of the way",
-			"publication_date":"2012-03-01",
+			"publication_date":"2012-02-29",
 			"body":[
 				{"text":["When Microsoft Office 4.3 debuted in 1994, the app had what would become a very well known user interface: a row of icons, in colors to match the 20 'reserved' Windows colors along the top of the screen <sup><a href='#windows_colors'>&dagger;</a></sup>. The save button was Windows 'dark blue', the new document icon was 'yellow' and 'dark yellow'. These icons lasted 9 years without significant change - Office 97 removed the borders around each icon for a cleaner look, but otherwise everything remained intact."]},
 				{"image":{
