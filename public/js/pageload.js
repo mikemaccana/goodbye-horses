@@ -5,6 +5,10 @@ var templates_loaded = [];
 var width_offset = -30
 var left_offset = - (width_offset/2);
 var debug = false;
+var decent_browser = false;
+if ( navigator.userAgent.indexOf('MSIE') === -1 ) {
+	decent_browser = true;
+}
 // Load nav, and default page the first time you get this file
 if ( ! nav_loaded ) {
 	debuglog('Setting up nav for the first time');
@@ -78,21 +82,25 @@ function load_page(path) {
 }
 
 function update_highlight(url) {
-	// Set current URL	
-	debuglog('Updating highlight for '+url)
-	top_level_url = url.split('/').splice(1)[0] // Just 'foo' from '/foo/bar/baz'
-	var current_list_item = $('nav a[href$="/'+top_level_url+'"]').parent();
-	$('nav li').not(current_list_item).removeClass('current_page_item');
-	current_list_item.addClass('current_page_item');
+	if ( decent_browser ) { 
+		// Set current URL	
+		debuglog('Updating highlight for '+url)
+		top_level_url = url.split('/').splice(1)[0] // Just 'foo' from '/foo/bar/baz'
+		var current_list_item = $('nav a[href$="/'+top_level_url+'"]').parent();
+		$('nav li').not(current_list_item).removeClass('current_page_item');
+		current_list_item.addClass('current_page_item');
+	}	
 }
 
 function set_new_highlight_snap_back_position($highlight) {
-	debuglog('Setting snap back position');
-    $highlight
-        .width($(".current_page_item").width() + width_offset)
-        .css("left", $(".current_page_item a").position().left + left_offset)
-        .data("original_left", $highlight.position().left)
-        .data("original_width", $highlight.width());	
+	if ( decent_browser ) {
+		debuglog('Setting snap back position');
+	    $highlight
+	        .width($(".current_page_item").width() + width_offset)
+	        .css("left", $(".current_page_item a").position().left + left_offset)
+	        .data("original_left", $highlight.position().left)
+	        .data("original_width", $highlight.width());	
+	}		
 }
 
 function change_page(event) {
@@ -120,7 +128,7 @@ function setup_navigation() {
 			$('body').append(html);
 			
 			update_highlight(location.pathname);
-			
+					
 			// Set up moving underline
 		    var $hovered_link
 
@@ -129,24 +137,26 @@ function setup_navigation() {
 		    $nav_container.append("<li id='highlight'></li>");
 		    var $highlight = $("#highlight");
 		
-		    set_new_highlight_snap_back_position($highlight); 
-
+			set_new_highlight_snap_back_position($highlight); 
+				
 			// Slide underline when hovered, back when unhovered 	
-		    $nav_links.on('mouseenter', function(event) {
-		        $hovered_link = $(event.target);
-		        var new_left_position = $hovered_link.position().left + left_offset;
-		        var new_width = $hovered_link.parent().width() + width_offset;
-		        $highlight.stop().animate({
-		            left: new_left_position,
-		            width: new_width
-		        },DAMN_FAST)
-			});
-			$nav_links.on('mouseleave', function(event) {
-		        $highlight.stop().animate({
-		            left: $highlight.data("original_left"),
-		            width: $highlight.data("original_width")
-		        },DAMN_FAST);
-		    });
+			if ( decent_browser ) {  
+			    $nav_links.on('mouseenter', function(event) {
+			        $hovered_link = $(event.target);
+			        var new_left_position = $hovered_link.position().left + left_offset;
+			        var new_width = $hovered_link.parent().width() + width_offset;
+			        $highlight.stop().animate({
+			            left: new_left_position,
+			            width: new_width
+			        },DAMN_FAST)
+				});
+				$nav_links.on('mouseleave', function(event) {
+			        $highlight.stop().animate({
+			            left: $highlight.data("original_left"),
+			            width: $highlight.data("original_width")
+			        },DAMN_FAST);
+			    });
+			}
 		
 			$nav_links.on('click', function(event) { change_page(event) } );
 	
