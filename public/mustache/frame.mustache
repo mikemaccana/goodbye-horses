@@ -3,9 +3,9 @@
 		<h1>{{name}}</h1>
 		<p class="slogan">&mdash;{{ slogan }}</a>
 	</div>	
-	<p id="last_tweet" class="quote">
-		{{ last_tweet }}
-	</p>
+	<q>
+		<a href="http://twitter.com/{{ twitter }}">{{ last_tweet }}</a>
+	</q>
 				
 	<div class="clearfix"></div>
 </header>
@@ -14,7 +14,6 @@
 		<ul>
 			<li><a href="/">Writing</a></li>
 			<li><a href="/work">Work</a></li>
-			<!-- ><li><a href="/art">Art</a></li> -->
 			<li><a href="/contact">Contact</a></li>
 			<div class="clearfix"></div>
 		</ul>
@@ -23,7 +22,8 @@
 </nav>
 
 <section class="maincontent">
-</section>	
+</section>
+<div class="clearfix"></div>	
 
 <footer>
 	<p>&copy; {{ name }} {{ year }}</p>

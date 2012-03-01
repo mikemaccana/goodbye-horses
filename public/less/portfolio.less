@@ -13,6 +13,10 @@
     font-style: normal;
 }
 
+.border {
+	border: solid 1px @midgrey;
+}
+
 .centered_on_page {
 	max-width: 960px;
 	margin: 0 auto;	
@@ -23,15 +27,16 @@
 	letter-spacing: 1pt;
 }
 
-.quote {
+q {
 	font-style: oblique;
+	display: block;
 }
 
-.quote:before {
+q:before {
 	content: "“";
 }
 
-.quote:after {
+q:after {
 	content: "”";
 }
 
@@ -68,7 +73,7 @@ p.slogan {
 	color: @orange;
 }
 
-p#last_tweet {
+header q {
 	float: right;
 	text-align: right;
 	font-size: @secondary_base_font_size;
@@ -120,9 +125,9 @@ nav #highlight {
 /* Blog */
 
 section.maincontent {
-	min-height: 1000px;
 	padding-top: 20px;
 	.centered_on_page;
+	min-height: 700px;
 } 
 
 section.main {
@@ -134,9 +139,57 @@ article {
 	margin-bottom: 100px;
 }
 
-article > p {
+article time {
+	font-style: oblique;
+}
+
+article p {
 	text-align: justify; 
 	text-justify: newspaper;
+	padding: 10px 0;
+}
+
+article q {
+	font-size: @primary_base_font_size * @golden_ratio;
+	padding: 0 25px;
+}
+
+article footer a {
+	text-decoration: underline;
+}
+
+article q strong {
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+figure {
+	text-align: center;
+	padding: 10px 50px;
+}
+
+figure img {
+	.border;
+}
+
+figcaption {
+	font-style: oblique;
+	font-size: @secondary_base_font_size;
+}
+
+article footer {
+	font-style: oblique;
+}
+
+aside.footnote {
+	font-size: @secondary_base_font_size;
+	display: none;
+	z-index: 100;
+	background-color: @white;
+	border: solid 1px @darkgrey;
+	width: 300px;
+	padding: 4px;
+	font-style: oblique;
 }
 
 /* Sidebar */
@@ -152,9 +205,6 @@ p.bio {
 }
 
 /* Works */
-
-#works {
-}
 
 li.work {
 	display: block;
@@ -172,7 +222,7 @@ li.work {
 }
 
 .work img {
-	border: solid 1px @midgrey;
+	.border;
 }
 
 .year {
@@ -208,8 +258,8 @@ p.description {
 	font-size: @secondary_base_font_size;
 }
 
-footer {
-	min-height: 300px;
+body > footer {
+	min-height: 200px;
 	padding-top: 50px;
 	margin-top: 100px;
 	background-color: @darkgrey;
@@ -217,7 +267,7 @@ footer {
 	text-align: center;
 }
 
-footer p {
+body > footer p {
 	font-size: @secondary_base_font_size / @golden_ratio;
 	padding-top: 10px;
 	.uppercase;
