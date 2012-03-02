@@ -33,6 +33,27 @@ function load_edition() {
 	})
 }
 
+// Return a list of all templates needed for the URL
+function get_parent_templates_for_url(path) {
+	var templates = []
+	//templates.push(edition_data[path])
+	var path_bits = path.split('/').splice(1)
+
+	function get_frame_chunks(path_bits) {
+		
+		if ( path_bits.length === 0 ) {
+			// Reverse them to be in order of 
+			return templates
+		}
+		
+		path_bits.splice(path_bits.length - 1)
+		templates.unshift('/' + path_bits.join('/'))
+		return get_frame_chunks(path_bits) 
+		
+	}
+	return get_frame_chunks(path_bits) 
+}
+
 // Load whatever page is at path into the window
 function load_page(path) {
 	if ( ! edition_data.hasOwnProperty(path) ) {
@@ -41,6 +62,9 @@ function load_page(path) {
 	}
 	page_data = edition_data[path]
 	// TODO: we should only fetch templates we haven't fetched before
+	parent_templates = get_parent_templates_for_url(path)
+	console.log('parent templates are:')
+	console.log(parent_templates)
 	load_template_and_data(page_data['template'], page_data['contents'])
 }
 
