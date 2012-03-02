@@ -37,6 +37,11 @@ function check_twitter() {
 	});
 };
 
+function array_has_item(some_array, some_item) {
+	return some_array.indexOf(some_item) === -1
+}
+
+
 // Update the 'latest_tweet'
 function start_twitter_monitor(interval_mins) {
 	check_twitter();
@@ -69,7 +74,7 @@ app = {
 	cleanRequest: function (request) {
 		request.url = _.trim(request.url, '/').toLowerCase();
 		if ( ! (this.pages.indexOf(request.url) === -1) ) {
-			console.log('found in top level')
+			console.log('This is a real page (not a resource)')
 			request.url = 'html/content.html'		
 		}
 		console.log('Cleaned request URL is: "'+request.url+'"')
@@ -98,16 +103,28 @@ app = {
 	
 	// Return a JSON mapping of template names to their contents
 	// This is so clients can fetch all templates required for a URL at once
-	serveTemplates: function(request, response) {
+	serveTemplatesAndContents: function(request, response) {
 		var response_json = [];
-		var url_parts = url.parse(request.url, true);
-		var templates = Object.keys(url_parts.query);
-		console.log('client has asked for templates: ')
-		console.log(templates)
-		// Open all templates with first function, run second function when all are complete
+		var url_parts = url.parse(request.url, true).query;	
 		
-		var open_template_and_add_it_to_response = function(template, callback) {
-			var full_filename = app.PUBLIC+'mustache'+template+'.mustache'
+		items = []
+		Object.keys(url_parts).forEach( function(item_pair) {
+			items = items.concat(item_pair.split(','))
+		});
+			
+		console.log('client has asked for templates: ')
+		console.log(items)
+		
+		
+		// Open all templates with first function, run second function when all are complete
+		var open_item_and_add_it_to_response = function(item_name, callback) {
+			if ( array_has_item(item_name,'content') ) {
+				var full_filename = app.PUBLIC+'json'+item_name+'.json'
+			} else {
+				var full_filename = app.PUBLIC+'mustache'+item_name+'.mustache'
+			}
+			
+			
 			console.log('opening :'+full_filename)
 			fs.readFile(full_filename, function(error, data) {
 				if ( error) {	
@@ -116,20 +133,20 @@ app = {
 				} else {
 					template_string = data.toString()
 					//template_string = 'hello'
-					response_json.push([template, template_string])
-					console.log('woo '+template+' found. String is:')
+					response_json.push([item_name, template_string])
+					console.log('woo '+item_name+' found. String is:')
 					console.log(template_string)
 					return callback()
 				}		
 			})
 		}
 		
-		async.forEach(templates, open_template_and_add_it_to_response, function(error) {
+		async.forEach(items, open_item_and_add_it_to_response, function(error) {
 			if ( error) {	
 				console.log('oh no errors!')
 				return app.notFound(response);
 			} else {
-				console.log('all templates found')
+				console.log('all items found')
 				response.writeHead(200, {'Content-Type': 'application/json'});
 				
 				final_response = JSON.stringify(response_json)
@@ -139,6 +156,8 @@ app = {
 				return response.end(final_response); 
 			}	
 		});
+		
+
 		
 	},
 	
@@ -177,7 +196,7 @@ app = {
 		// Patterns to match incoming URLs to 
 		routes = [
 			['html|js|json|fonts|images|css|less|mustache',app.serveFile],
-			['templates',app.serveTemplates],
+			['templates_and_data',app.serveTemplatesAndContents],	
 		]
 		
 		var found = false;
@@ -185,7 +204,7 @@ app = {
 		routes.forEach( function(route) {
 			route_expression = new RegExp(route[0])
 			if ( route_expression.test(request.url) ) {
-				console.log('Yaay. '+request.url+' matched '+route[0]);
+				console.log('Yaay. "'+request.url+'" matched route '+route[0]);
 				found = true;
 				return route[1](request, response);
 			}			

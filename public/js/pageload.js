@@ -69,22 +69,23 @@ function load_page(path) {
 		path = 'notfound'
 	}
 
-	templates_needed = []
-	data_needed = []
+	templates_and_data_needed = []
 
 	// Get a list of all templates needed for our parent frames (eg, /foo/bar depends on / and /foo)
 	parents = get_url_parents(path)
 	parents.forEach( function(parent_url) {
-		templates_needed.push('/'+edition_data[parent_url]['frame_template'])
+		this_url = edition_data[parent_url]
+		templates_and_data_needed.push(['/'+this_url['frame_template'], '/'+this_url['frame_contents']])
 	})	
 	// And the template for the current page too
-	templates_needed.push('/'+edition_data[path]['template'])
-	
-	
+	templates_and_data_needed.push(['/'+edition_data[path]['template'], '/'+edition_data[path]['contents'] ])
 
 	// Request the required templates from the server
-	template_files_url = encode_url('/templates', templates_needed)
-	$.get( template_files_url, {}, function(response_data) {
+	console.log('templates_and_data_needed templates_and_data_needed templates_and_data_needed templates_and_data_needed')
+	console.log(templates_and_data_needed)
+	
+	thing_we_need_url = encode_url('/templates_and_data', templates_and_data_needed)
+	$.get( thing_we_need_url, {}, function(response_data) {
 		console.log('GOT ALL OUR PARENT TEMPLATES')
 		console.log(response_data);
 		//load_template_and_data(page_data, page_data['contents'])
