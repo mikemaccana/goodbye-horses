@@ -114,8 +114,11 @@ app = {
 					console.log('oh no template missing')	
 					return callback(error)
 				} else {
-					response_json.push[template, data.toString()]
-					console.log('woo '+template+' found')
+					template_string = data.toString()
+					//template_string = 'hello'
+					response_json.push([template, template_string])
+					console.log('woo '+template+' found. String is:')
+					console.log(template_string)
 					return callback()
 				}		
 			})
@@ -129,7 +132,11 @@ app = {
 				console.log('all templates found')
 				response.writeHead(200, {'Content-Type': 'application/json'});
 				
-				return response.end(JSON.stringify(response_json)); 
+				final_response = JSON.stringify(response_json)
+				console.log('returning:')
+				console.log(final_response)
+				
+				return response.end(final_response); 
 			}	
 		});
 		

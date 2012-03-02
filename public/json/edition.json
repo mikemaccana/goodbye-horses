@@ -1,0 +1,27 @@
+{
+	"/":{
+		"template":"blog",
+		"contents":"mikesblog",
+		"frame":"blogframe"
+	},
+	"/work":{
+		"template":"sortedworks",
+		"contents":"mikeswork",
+		"frame":"worksframe"
+	},
+	"/contact":{
+		"template":"contact",
+		"contents":"mikescontactinfo",
+		"frame":null
+	},
+	"/work":{
+		"template":"sortedworks",
+		"contents":"mikeswork",
+		"frame":"worksframe"
+	},
+	"/work/imeveryone":{
+		"template":"work_detail",
+		"contents":"imeveryone_detail",
+		"frame":null
+	}
+}
