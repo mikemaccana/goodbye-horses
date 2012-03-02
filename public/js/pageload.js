@@ -1,5 +1,7 @@
 var edition_loaded = false;
 var edition_data = {};
+var templates_loaded = [];
+var debug = true;
 
 // Log if debugging enabled
 function debuglog(text) {
@@ -8,13 +10,17 @@ function debuglog(text) {
 	}
 }
 
+function array_has_item(some_array, some_item) {
+	return some_array.indexOf(some_item) === -1
+}
+
 // Load a template if it hasn't been loaded before
-function add_template_if_necessary(template_path, template_string) {
-	if ( templates_loaded.indexOf(template_path) === -1  ) {
-		debuglog('Adding new template :'+template_path);
+function add_template_if_necessary(template_name, template_string) {
+	if ( array_has_item(templates_loaded, template_name) ) {
+		debuglog('Adding new template: '+template_name);
 		// Add the template to ICHasMustache's list of templates (name is the path)
-		ich.addTemplate(template_path, template_string);
-		templates_loaded.push(template_path);
+		ich.addTemplate(template_name, template_string);
+		templates_loaded.push(template_name);
 	} 
 }
 
@@ -33,13 +39,18 @@ function load_page(path) {
 		path = 'notfound'
 	}
 	page_data = edition_data[path]
+	// TODO: we should only fetch templates we haven't fetched before
 	load_template_and_data(page_data['template'], page_data['contents'])
 }
 
 function load_template_and_data(template, contents) {
 	$.get('/mustache/'+template+'.mustache', function(template_string) {
 		$.get('/json/'+contents+'.json', function(contents) {
-			console.log('woo GOT ALL THE THINGS')
+			add_template_if_necessary(template, template_string);
+			console.log('contents are:')
+			console.log(contents)
+			var html = ich[template](contents);
+			console.log(html)
 		})
 	})
 }
