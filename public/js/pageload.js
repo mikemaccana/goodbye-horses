@@ -25,7 +25,7 @@ function add_template_if_necessary(template_name, template_string) {
 }
 
 function load_edition() {
-	$.get('json/edition.json', function(edition_data_response) {
+	$.get('/json/edition.json', function(edition_data_response) {
 		console.log('got edition data')
 		edition_data = edition_data_response
 		console.log(edition_data)
@@ -33,6 +33,7 @@ function load_edition() {
 	})
 }
 
+// Load whatever page is at path into the window
 function load_page(path) {
 	if ( ! edition_data.hasOwnProperty(path) ) {
 		console.log('Page doesnt exist - loading 404 oage')
@@ -43,6 +44,7 @@ function load_page(path) {
 	load_template_and_data(page_data['template'], page_data['contents'])
 }
 
+// Stuff the template with the contents
 function load_template_and_data(template, contents) {
 	$.get('/mustache/'+template+'.mustache', function(template_string) {
 		$.get('/json/'+contents+'.json', function(contents) {

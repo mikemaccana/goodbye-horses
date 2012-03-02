@@ -5,23 +5,18 @@
 		"frame":"blogframe"
 	},
 	"/work":{
-		"template":"sortedworks",
-		"contents":"mikeswork",
+		"template":"works",
+		"contents":"mikes_work",
 		"frame":"worksframe"
 	},
 	"/contact":{
 		"template":"contact",
-		"contents":"mikescontactinfo",
+		"contents":"mikes_contact_info",
 		"frame":null
 	},
-	"/work":{
-		"template":"sortedworks",
-		"contents":"mikeswork",
-		"frame":"worksframe"
-	},
-	"/work/imeveryone":{
+	"/work/im_everyone":{
 		"template":"work_detail",
-		"contents":"imeveryone_detail",
+		"contents":"im_everyone_detail",
 		"frame":null
 	}
 }
