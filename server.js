@@ -111,7 +111,7 @@ app = {
 			console.log('opening :'+full_filename)
 			fs.readFile(full_filename, function(error, data) {
 				if ( error) {	
-					console.log('oh no template missing')	
+					console.log('oh no template "'+full_filename+'" missing')	
 					return callback(error)
 				} else {
 					template_string = data.toString()
