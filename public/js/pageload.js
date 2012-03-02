@@ -26,23 +26,22 @@ function add_template_if_necessary(template_name, template_string) {
 
 function load_edition() {
 	$.get('/json/edition.json', function(edition_data_response) {
-		console.log('got edition data')
+		debuglog('got edition data')
 		edition_data = edition_data_response
-		console.log(edition_data)
+		debuglog(edition_data)
 		load_page(location.pathname)
 	})
 }
 
-// Return a list of all templates needed for the URL
-function get_parent_templates_for_url(path) {
+// Return a list of all parent URLs for the given URL
+function get_url_parents(path) {
 	var templates = []
-	//templates.push(edition_data[path])
 	var path_bits = path.split('/').splice(1)
 
 	function get_frame_chunks(path_bits) {
 		
 		if ( path_bits.length === 0 ) {
-			// Reverse them to be in order of 
+			// Reverse them to be in order of topmost parent to last parent
 			return templates
 		}
 		
@@ -54,18 +53,41 @@ function get_parent_templates_for_url(path) {
 	return get_frame_chunks(path_bits) 
 }
 
+// Encode a URL for an HTTP request (currrent just does option, not option=value)
+function encode_url(base, parts_to_encode) {
+	url_parts = []
+	parts_to_encode.forEach( function(part_to_encode) {
+		url_parts.push(encodeURIComponent(part_to_encode))
+	})	
+	return base+'?' + url_parts.join('&')
+}
+
 // Load whatever page is at path into the window
 function load_page(path) {
 	if ( ! edition_data.hasOwnProperty(path) ) {
-		console.log('Page doesnt exist - loading 404 oage')
+		debuglog('Page doesnt exist - loading 404 oage')
 		path = 'notfound'
 	}
-	page_data = edition_data[path]
-	// TODO: we should only fetch templates we haven't fetched before
-	parent_templates = get_parent_templates_for_url(path)
-	console.log('parent templates are:')
-	console.log(parent_templates)
-	load_template_and_data(page_data['template'], page_data['contents'])
+
+	templates_needed = []
+	data_needed = []
+
+	// Get a list of all templates needed for our parent frames (eg, /foo/bar depends on / and /foo)
+	parents = get_url_parents(path)
+	parents.forEach( function(parent_url) {
+		templates_needed.push(edition_data[parent_url]['frame_template'])
+	})	
+	// And the template for the current page too
+	templates_needed.push(edition_data[path]['template'])
+	
+	// Request the required templates from the server
+	template_files_url = encode_url('/templates', templates_needed)
+	$.get( template_files_url, {}, function(response_data) {
+		console.log('GOT ALL OUR PARENT TEMPLATES')
+		console.log(response_data);
+		//load_template_and_data(page_data, page_data['contents'])
+	})
+	
 }
 
 // Stuff the template with the contents
@@ -73,10 +95,10 @@ function load_template_and_data(template, contents) {
 	$.get('/mustache/'+template+'.mustache', function(template_string) {
 		$.get('/json/'+contents+'.json', function(contents) {
 			add_template_if_necessary(template, template_string);
-			console.log('contents are:')
-			console.log(contents)
+			debuglog('contents are:')
+			debuglog(contents)
 			var html = ich[template](contents);
-			console.log(html)
+			debuglog(html)
 		})
 	})
 }
@@ -85,6 +107,6 @@ function load_template_and_data(template, contents) {
 
 // Load nav, and default page the first time you get this file
 if ( Object.keys(edition_data).length === 0 ) {
-	console.log('Setting up this edition');
+	debuglog('Setting up this edition');
 	load_edition();
 }

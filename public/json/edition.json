@@ -2,24 +2,25 @@
 	"/":{
 		"template":"blog",
 		"contents":"mikes_blog",
-		"frame_template":"blogframe"
+		"frame_template":"blogframe",
 		"frame_contents":"blogframe"
 	},
 	"/work":{
 		"template":"works",
 		"contents":"mikes_work",
-		"frame_template":"worksframe"
+		"frame_template":"worksframe",
 		"frame_contents":"worksframe"
 	},
 	"/contact":{
 		"template":"contact",
 		"contents":"mikes_contact_info",
-		"frame_template":null
+		"frame_template":null,
 		"frame_contents":null
 	},
 	"/work/im_everyone":{
 		"template":"work_detail",
 		"contents":"im_everyone_detail",
-		"frame_template":null
+		"frame_template":null,
+		"frame_contents":null
 	}
 }
