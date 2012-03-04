@@ -10,7 +10,8 @@ var http = require('http'),
 	_ = require('underscore'),
 	superagent = require('superagent'),
 	url  = require('url'),
-	async = require('async');
+	async = require('async'),
+	jsonlint = require("jsonlint");
 _.str = require('underscore.string');
 
 // Add underscore.string to underscore
@@ -104,7 +105,7 @@ app = {
 	// Return a JSON mapping of template names to their contents
 	// This is so clients can fetch all templates required for a URL at once
 	serveTemplatesAndContents: function(request, response) {
-		var response_json = [];
+		var response_json = {};
 		var url_parts = url.parse(request.url, true).query;	
 		
 		items = []
@@ -120,22 +121,32 @@ app = {
 		var open_item_and_add_it_to_response = function(item_name, callback) {
 			if ( array_has_item(item_name,'content') ) {
 				var full_filename = app.PUBLIC+'json'+item_name+'.json'
+				var use_json = true;
 			} else {
 				var full_filename = app.PUBLIC+'mustache'+item_name+'.mustache'
+				var use_json = false;
 			}
 			
 			
 			console.log('opening :'+full_filename)
 			fs.readFile(full_filename, function(error, data) {
+				
 				if ( error) {	
 					console.log('oh no template "'+full_filename+'" missing')	
 					return callback(error)
 				} else {
-					template_string = data.toString()
-					//template_string = 'hello'
-					response_json.push([item_name, template_string])
+					if ( use_json ) {
+						//var file_contents = JSON.parse()
+						var a_string = data.toString();
+						console.log('x'+a_string+'x');
+						console.log(full_filename+' being JSON parsed')	
+						var file_contents = JSON.parse(a_string);
+					} else {
+						var file_contents = data.toString();
+					}
+					response_json[item_name] = file_contents
 					console.log('woo '+item_name+' found. String is:')
-					console.log(template_string)
+					console.log(file_contents)
 					return callback()
 				}		
 			})

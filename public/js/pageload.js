@@ -86,16 +86,30 @@ function load_page(path) {
 	
 	thing_we_need_url = encode_url('/templates_and_data', templates_and_data_needed)
 	$.get( thing_we_need_url, {}, function(response_data) {
-		console.log('GOT ALL OUR PARENT TEMPLATES')
+		console.log('Recieved templates and data')
 		console.log(response_data);
-		//load_template_and_data(page_data, page_data['contents'])
+		load_templates_and_contents(templates_and_data_needed, response_data)
 	})
-	
 }
 
 // Stuff the template with the contents
-function load_template_and_data(template, contents) {
-	$.get('/mustache/'+template+'.mustache', function(template_string) {
+function load_templates_and_contents(templates_and_data_needed, response_data) {
+	// Work through current url
+	parents = get_url_parents(location.pathname)
+	console.log(parents)
+	parents.forEach( function(parent) {
+		template_name = edition_data[parent_url]['template']
+		template_data = edition_data[parent_url]['template']
+	})
+	
+	/*templates_and_data_needed.forEach( function(template_and_content_pair) {
+		console.log(template_and_content_pair)
+		template = template_and_content_pair[0]
+		content = template_and_content_pair[1]
+		
+	})*/
+	
+	/*$.get('/mustache/'+template+'.mustache', function(template_string) {
 		$.get('/json/'+contents+'.json', function(contents) {
 			add_template_if_necessary(template, template_string);
 			debuglog('contents are:')
@@ -103,7 +117,7 @@ function load_template_and_data(template, contents) {
 			var html = ich[template](contents);
 			debuglog(html)
 		})
-	})
+	})*/
 }
 
 
