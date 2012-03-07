@@ -12,19 +12,20 @@ var Resource = Backbone.Model.extend({
     }
 });
 
-new Resource({ path: "/", template:"blog"});
-new Resource({ path: "/work", template:"work"});
-new Resource({ path: "/work/im_everyone", template:"individual_work"});
-new Resource({ path: "/contact", template:"contact"});
-
-// An edition is a collection of articles
+// An edition is a Collection of Resources, representing a single magazine/paper
 var Edition = Backbone.Collection.extend({
 	model : Resource,
+	url: '/json/edition.json',
+	// Return today's edition
 	current : function() {  
-	    return this.filter(function(resource) {  
+	    return this.filter(function(resource) {
+			coinsole.log('version is:')  
+			console.log(resource.get('version'))
 	    	return resource.get('version') === 1;  
 	    });  
 	}  
 });
 
-
+var edition = new Edition;
+edition.fetch();  
+var current_resources = edition.current()

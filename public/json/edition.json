@@ -1,26 +1,6 @@
-{
-	"/":{
-		"template":"blog",
-		"contents":"mikes_blog",
-		"frame_template":"frame",
-		"frame_contents":"blog_frame_content"
-	},
-	"/work":{
-		"template":"works",
-		"contents":"mikes_work",
-		"frame_template":"works_frame",
-		"frame_contents":"works_frame_content"
-	},
-	"/contact":{
-		"template":"contact",
-		"contents":"mikes_contact_info",
-		"frame_template":null,
-		"frame_contents":null
-	},
-	"/work/im_everyone":{
-		"template":"work_detail",
-		"contents":"im_everyone_detail",
-		"frame_template":null,
-		"frame_contents":null
-	}
-}
+[	
+	{ "path": "/", "template":"blog", "content":"mikes_blog"},
+	{ "path": "/work", "template":"work", "content":"mikes_work"},
+	{ "path": "/work/im_everyone", "template":"individual_work", "content":"im_everyone"},
+	{ "path": "/contact", "template":"contact", "content":"mikes_contact_details"}
+]
