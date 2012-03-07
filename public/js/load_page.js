@@ -17,9 +17,9 @@ var Edition = Backbone.Collection.extend({
 	model : Resource,
 	url: '/json/edition.json',
 	// Return today's edition
-	current : function() {  
+	get_current : function() {  
 	    return this.filter(function(resource) {
-			coinsole.log('version is:')  
+			console.log('version is:')  
 			console.log(resource.get('version'))
 	    	return resource.get('version') === 1;  
 	    });  
@@ -27,5 +27,10 @@ var Edition = Backbone.Collection.extend({
 });
 
 var edition = new Edition;
-edition.fetch();  
-var current_resources = edition.current()
+var current_resources
+edition.fetch({
+	success: function(){
+		current_resources = edition.get_current();
+	}
+});  
+
