@@ -5,7 +5,11 @@ var Article = Backbone.Model.extend({
     defaults: {
 		path: null, // Path on site where this article appears.
         template: 'article', // Name of a mustache template to use. Template itself specifies parents.
-		version: 1 // New versions mean we'll stop using this one. TODO: make it a datestamp
+		version: 1, // New versions mean we'll stop using this one. TODO: make it a datestamp
+		hed: null, // Heading
+		byline: null, // Author
+		lede: null, // If it bleeds it ledes
+		content: null // 
     },
     initialize: function(){
 		console.log('Creating new article ');
