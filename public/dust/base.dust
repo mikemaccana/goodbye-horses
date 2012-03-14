@@ -1,0 +1,36 @@
+<header>
+	<div id="header_and_slogan">
+		<h1>{name}</h1>
+		<p class="slogan">&mdash;{ slogan }</a>
+	</div>	
+	<q>
+		<a href="http://twitter.com/{ twitter }">{ last_tweet }</a>
+	</q>
+				
+	<div class="clearfix"></div>
+</header>
+<nav>
+	<div id="nav_container">
+		<ul>
+			<li><a href="/">Writing</a></li>
+			<li><a href="/work">Work</a></li>
+			<li><a href="/contact">Contact</a></li>
+			<div class="clearfix"></div>
+		</ul>
+	<div class="clearfix"></div>	
+	</div>
+</nav>
+
+<section class="maincontent">
+	{+main}
+	  Base Title
+	{/main}
+</section>
+<div class="clearfix"></div>	
+
+<footer>
+	<p>&copy; { name } { year }</p>
+	{#footer}
+		<p>{ . }</p>
+	{/footer}	
+</footer>

@@ -46,8 +46,21 @@ var ArticleView = Backbone.View.extend({
 	
 	// Show the HTML for the view 
 	render : function() {  
-		var template = this.model.get('template'); 
-		$(this.el).append(template); // change me to actually find and expand the real template
+		var template_name = this.model.get('template'); 
+		$.get("/dust/" + template_name+ ".dust", function(template_contents){
+			
+
+			var compiled_template = dust.compile(template_contents, template_name);
+			dust.loadSource(compiled_template);
+			
+			dust.render(template_name, {name: "Fred"}, function(err, output) {
+			    console.log(output);
+			    console.log($(this.el));
+				$(this.el).html(output); // change me to actually find and expand the real template
+			}.bind(this));
+			
+			
+		}.bind(this));
 		console.log($(this.el))
     	return this; // For chaining
 	}  
