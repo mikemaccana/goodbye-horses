@@ -1,5 +1,5 @@
 [	
-	{ "path": "/", "template":"blog", "content":"mikes_blog"},
+	{ "path": "/", "template":"base", "content":"mikes_blog"},
 	{ "path": "/work", "template":"work", "content":"mikes_work"},
 	{ "path": "/work/im_everyone", "template":"individual_work", "content":"im_everyone"},
 	{ "path": "/contact", "template":"contact", "content":"mikes_contact_details"}

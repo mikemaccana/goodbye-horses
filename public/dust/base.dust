@@ -23,7 +23,37 @@
 
 <section class="maincontent">
 	{+main}
-	  Base Title
+		<section class="main">
+			{#articles}
+				<article>
+					<h2>{ title }</h2>
+					<time datetime="{ publication_date }" pubdate>{ publication_date }</time>
+					<div class="clearfix"></div>
+						{#body}
+							{#text}
+								<p>{.}</p>
+							{/text}
+							{#quote}
+								<q>{.}</q>
+							{/quote}					
+							{#image}
+								<figure><img src="{src}"><figcaption>{caption}</figcaption></figure>
+							{/image}
+							{#footnote}
+								<aside class='footnote'><a name='{name}'>&dagger; {text}</a></aside>
+							{/footnote}
+					
+						{/body}
+					<footer>
+						{ footer }
+					</footer>
+				</article>
+			{/articles}
+		</section>
+
+		<section class="sidebar">
+			<p class="bio">{ bio }</a>	
+		</section>
 	{/main}
 </section>
 <div class="clearfix"></div>	
