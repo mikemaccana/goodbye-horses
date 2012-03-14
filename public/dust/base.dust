@@ -1,10 +1,10 @@
 <header>
 	<div id="header_and_slogan">
 		<h1>{name}</h1>
-		<p class="slogan">&mdash;{ slogan }</a>
+		<p class="slogan">&mdash;{slogan}</a>
 	</div>	
 	<q>
-		<a href="http://twitter.com/{ twitter }">{ last_tweet }</a>
+		<a href="http://twitter.com/{ twitter }">{last_tweet}</a>
 	</q>
 				
 	<div class="clearfix"></div>
@@ -26,15 +26,15 @@
 		<section class="main">
 			{#articles}
 				<article>
-					<h2>{ title }</h2>
-					<time datetime="{ publication_date }" pubdate>{ publication_date }</time>
+					<h2>{title}</h2>
+					<time datetime="{publication_date}" pubdate>{publication_date}</time>
 					<div class="clearfix"></div>
 						{#body}
 							{#text}
-								<p>{.}</p>
+								<p>{.|s}</p>
 							{/text}
 							{#quote}
-								<q>{.}</q>
+								<q>{.|s}</q>
 							{/quote}					
 							{#image}
 								<figure><img src="{src}"><figcaption>{caption}</figcaption></figure>
@@ -45,22 +45,22 @@
 					
 						{/body}
 					<footer>
-						{ footer }
+						{footer|s}
 					</footer>
 				</article>
 			{/articles}
 		</section>
 
 		<section class="sidebar">
-			<p class="bio">{ bio }</a>	
+			<p class="bio">{bio}</a>	
 		</section>
 	{/main}
 </section>
 <div class="clearfix"></div>	
 
 <footer>
-	<p>&copy; { name } { year }</p>
+	<p>&copy; {name} {year}</p>
 	{#footer}
-		<p>{ . }</p>
+		<p>{.}</p>
 	{/footer}	
 </footer>

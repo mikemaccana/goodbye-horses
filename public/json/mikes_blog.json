@@ -1,4 +1,9 @@
 {
+	"name": "Mike MacCana",
+	"slogan": "I like making things.",
+	"last_tweet": "Last Tweet goes here",
+	"twitter": "mikemaccana",
+	"footer": ["Built with NodeJS, less, mustache, JQuery, quicksilver and a custom web framework.", "May all your dachshunds be long."],
 	"bio": "Hello there. I'm Mike MacCana, an engineer, designer, writer, and speaker in London.",
 	"articles": [
 		{
