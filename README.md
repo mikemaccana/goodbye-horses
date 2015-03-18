@@ -1,5 +1,7 @@
 # Goodbye Horses
 
+A very old node experiment, trying to make single page apps before that was a thing. 
+
 A web app for reading articles.
 
 ## Dependencies
